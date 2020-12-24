@@ -1,0 +1,14 @@
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.deps.json
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Domain.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Domain.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csprojAssemblyReference.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.AssemblyInfoInputs.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.AssemblyInfo.cs
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csproj.CoreCompileInputs.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csproj.CopyComplete
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.pdb

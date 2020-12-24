@@ -1,0 +1,15 @@
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.deps.json
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.runtimeconfig.json
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.runtimeconfig.dev.json
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Domain.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\bin\Debug\netcoreapp3.1\Pharmacy.Domain.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.csprojAssemblyReference.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.AssemblyInfo.cs
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.csproj.CopyComplete
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.pdb
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Infrastructure\obj\Debug\netcoreapp3.1\Pharmacy.Infrastructure.genruntimeconfig.cache
