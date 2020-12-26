@@ -26,6 +26,7 @@ namespace Pharmacy.API
         public void ConfigureServices(IServiceCollection services)
         {
             Config.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
+            Pharmacy.Core.Configuration.Config.ConfigureServices(services);
 
             services.AddControllers();
         }

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repostiory\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Pharmacy.Domain\Pharmacy.Domain.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pharmacy.Domain.Entities
 {
@@ -11,5 +12,10 @@ namespace Pharmacy.Domain.Entities
         public DateTime ExpireDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public virtual Unit Unit { get; set; }
+        public ICollection<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
+                                                     = new HashSet<Supplier_Medicine_Pharmacy>();
+
+        public ICollection<PatientTransaction> PatientTransactions { get; set; }
+                                                      = new HashSet<PatientTransaction>();
     }
 }
