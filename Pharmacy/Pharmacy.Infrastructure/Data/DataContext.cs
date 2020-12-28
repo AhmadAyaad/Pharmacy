@@ -37,14 +37,18 @@ namespace Pharmacy.Infrastructure.Data
 
             #region Unit Config
             modelBuilder.Entity<Unit>().Property(u => u.UnitName).IsRequired();
+
+            modelBuilder.Entity<Unit>()
+                        .HasMany(c => c.Medicines)
+                        .WithOne(e => e.Unit);
             #endregion
 
-            #region Medicine Unit Config
-            modelBuilder.Entity<Medicine>()
-                        .HasOne(med => med.Unit)
-                        .WithOne(unit => unit.Medicine)
-                        .HasForeignKey<Unit>(b => b.MedicineId);
-            #endregion
+            //#region Medicine Unit Config
+            //modelBuilder.Entity<Medicine>()
+            //            .HasOne(med => med.Unit)
+            //            .WithOne(unit => unit.Medicine)
+            //            .HasForeignKey<Unit>(b => b.MedicineId);
+            //#endregion
 
             #region Supplier Config
 

@@ -10,6 +10,7 @@ namespace Pharmacy.Core.Interfaces
     {
         Task<bool> CreateMedicine(Medicine medicine);
         Task<IEnumerable<Medicine>> GetMedicines();
+        Task<Medicine> GetMedicine(int id);
         Task<int> SaveChangesAsync();
     }
 }

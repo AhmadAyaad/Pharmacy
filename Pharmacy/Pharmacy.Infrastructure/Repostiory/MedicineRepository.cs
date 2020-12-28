@@ -40,13 +40,14 @@ namespace Pharmacy.Infrastructure.Repostiory
 
         public async Task<IEnumerable<Medicine>> GetAll()
         {
-            var medicines = await _context.Medicines.ToListAsync();
+            var medicines = await _context.Medicines.AsNoTracking().Include(m => m.Unit).ToListAsync();
             return medicines != null ? medicines : new List<Medicine>();
         }
 
         public async Task<Medicine> GetById(int id)
         {
-            var medicine = await _context.Medicines.FindAsync(id);
+            var medicine = await _context.Medicines.Include(m => m.Unit)
+                                         .SingleOrDefaultAsync(m => m.MedicineId == id);
             return medicine != null ? medicine : new Medicine();
         }
 

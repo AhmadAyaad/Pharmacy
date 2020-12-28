@@ -11,6 +11,7 @@ namespace Pharmacy.Domain.Entities
         public decimal SellingPrice { get; set; }
         public DateTime ExpireDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public int? UnitId { get; set; }
         public virtual Unit Unit { get; set; }
         public ICollection<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
                                                      = new HashSet<Supplier_Medicine_Pharmacy>();

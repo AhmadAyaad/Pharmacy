@@ -67,3 +67,6 @@ C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\obj\Debug\n
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\obj\Debug\netcoreapp3.1\Pharmacy.API.genruntimeconfig.cache
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

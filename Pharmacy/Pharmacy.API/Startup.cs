@@ -27,6 +27,9 @@ namespace Pharmacy.API
         {
             Config.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
             Pharmacy.Core.Configuration.Config.ConfigureServices(services);
+            services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling =
+                       Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddCors();
 
             services.AddControllers();
         }
@@ -40,6 +43,7 @@ namespace Pharmacy.API
             }
 
             app.UseRouting();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 

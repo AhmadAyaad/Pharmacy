@@ -35,9 +35,34 @@ namespace Pharmacy.Core.Services
             }
         }
 
-        public Task<IEnumerable<Medicine>> GetMedicines()
+        public async Task<Medicine> GetMedicine(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var medicine = await _medicineRepository.GetById(id);
+                if (medicine != null)
+                    return medicine;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            return new Medicine();
+        }
+
+        public async Task<IEnumerable<Medicine>> GetMedicines()
+        {
+            try
+            {
+                var medicines = await _medicineRepository.GetAll();
+                if (medicines != null)
+                    return medicines;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            return new List<Medicine>();
         }
 
         public async Task<int> SaveChangesAsync()

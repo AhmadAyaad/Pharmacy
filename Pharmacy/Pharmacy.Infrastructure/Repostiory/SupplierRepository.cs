@@ -41,13 +41,13 @@ namespace Pharmacy.Infrastructure.Repostiory
 
         public async Task<IEnumerable<Supplier>> GetAll()
         {
-            var suppliers = await _context.Suppliers.ToListAsync();
+            var suppliers = await _context.Suppliers.AsNoTracking().ToListAsync();
             return suppliers != null ? suppliers : new List<Supplier>();
         }
 
         public async Task<Supplier> GetById(int id)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _context.Suppliers.AsNoTracking().SingleOrDefaultAsync(s => s.SupplierId == id);
             return supplier != null ? supplier : new Supplier();
         }
 
