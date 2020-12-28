@@ -66,10 +66,7 @@ namespace Pharmacy.Infrastructure.Repostiory
             return false;
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
+
 
     }
 }

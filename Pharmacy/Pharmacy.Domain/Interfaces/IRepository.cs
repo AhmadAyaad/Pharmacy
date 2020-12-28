@@ -12,6 +12,5 @@ namespace Pharmacy.Domain.Interfaces
         Task<IEnumerable<T>> GetAll();
         Task<bool> Update(T t);
         Task<bool> Delete(T t);
-        Task<int> SaveChangesAsync();
     }
 }

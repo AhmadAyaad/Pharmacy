@@ -12,10 +12,12 @@ namespace Pharmacy.Core.Services
     public class SupplierService : ISupplierService
     {
         private readonly IRepository<Supplier> _supplierRepository;
+        private readonly IUnitOfWorkService _unitOfWorkService;
 
-        public SupplierService(IRepository<Supplier> supplierRepository)
+        public SupplierService(IRepository<Supplier> supplierRepository, IUnitOfWorkService unitOfWorkService)
         {
             _supplierRepository = supplierRepository;
+            _unitOfWorkService = unitOfWorkService;
         }
         public async Task<bool> CreateSupplier(Supplier supplier)
         {
@@ -23,7 +25,7 @@ namespace Pharmacy.Core.Services
             try
             {
                 if (isCreated)
-                    await _supplierRepository.SaveChangesAsync();
+                    await _unitOfWorkService.SaveChagnesAsync();
                 return true;
             }
             catch (Exception e)

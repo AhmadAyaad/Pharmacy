@@ -51,11 +51,6 @@ namespace Pharmacy.Infrastructure.Repostiory
             return medicine != null ? medicine : new Medicine();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
-
         public async Task<bool> Update(Medicine medicine)
         {
             if (medicine != null)

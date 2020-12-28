@@ -12,10 +12,12 @@ namespace Pharmacy.Core.Services
     public class MedicineService : IMedicineService
     {
         private readonly IRepository<Medicine> _medicineRepository;
+        private readonly IUnitOfWorkService _unitOfWorkService;
 
-        public MedicineService(IRepository<Medicine> medicineRepository)
+        public MedicineService(IRepository<Medicine> medicineRepository , IUnitOfWorkService unitOfWorkService)
         {
             _medicineRepository = medicineRepository;
+            _unitOfWorkService = unitOfWorkService;
         }
 
         public async Task<bool> CreateMedicine(Medicine medicine)
@@ -24,7 +26,7 @@ namespace Pharmacy.Core.Services
             try
             {
                 if (isCreated)
-                    await _medicineRepository.SaveChangesAsync();
+                    await _unitOfWorkService.SaveChagnesAsync();
                 return true;
             }
             catch (Exception e)
@@ -65,9 +67,5 @@ namespace Pharmacy.Core.Services
             return new List<Medicine>();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _medicineRepository.SaveChangesAsync();
-        }
     }
 }

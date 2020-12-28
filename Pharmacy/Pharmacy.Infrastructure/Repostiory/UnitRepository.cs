@@ -55,10 +55,6 @@ namespace Pharmacy.Infrastructure.Repostiory
             return unit != null ? unit : new Unit();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
 
         public async Task<bool> Update(Unit unit)
         {

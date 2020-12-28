@@ -4,6 +4,7 @@ using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Data;
 using Pharmacy.Infrastructure.Repostiory;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Pharmacy.Infrastructure.Configuration
             services.AddScoped<IRepository<Medicine>, MedicineRepository>();
             services.AddScoped<IRepository<Supplier>, SupplierRepository>();
             services.AddScoped<IRepository<Unit>, UnitRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
     }
 }
