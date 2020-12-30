@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pharmacy.API.Dtos;
+using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using System;
@@ -48,9 +48,9 @@ namespace Pharmacy.API.Controllers
             return BadRequest();
 
         }
-    
-    
-        [HttpGet] 
+
+
+        [HttpGet]
         public async Task<IActionResult> GetSuppliers()
         {
             var suppliers = await _supplierService.GetSuppliers();
@@ -60,6 +60,6 @@ namespace Pharmacy.API.Controllers
 
 
         }
-    
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pharmacy.API.Dtos;
+using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using System;
@@ -13,12 +13,10 @@ namespace Pharmacy.API.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
-        private readonly IUnitService _unitService;
 
-        public MedicineController(IMedicineService medicineService, IUnitService unitService)
+        public MedicineController(IMedicineService medicineService)
         {
             _medicineService = medicineService;
-            _unitService = unitService;
         }
 
         [HttpPost]

@@ -16,14 +16,10 @@ namespace Pharmacy.Core.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        //private readonly IRepository<Medicine> _medicineRepository;
-        //private readonly IUnitOfWorkService _unitOfWorkService;
 
         public MedicineService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            //_medicineRepository = medicineRepository;
-            //_unitOfWorkService = unitOfWorkService;
         }
 
         public async Task<bool> CreateMedicine(Medicine medicine)

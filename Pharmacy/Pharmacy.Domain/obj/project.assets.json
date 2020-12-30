@@ -722,19 +722,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ahmad Ayad\\.nuget\\packages\\": {}
+    "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\ahmed.ayaad\\ma-projects\\.Net\\Pharmacy\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
       "projectName": "Pharmacy.Domain",
-      "projectPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
-      "packagesPath": "C:\\Users\\Ahmad Ayad\\.nuget\\packages\\",
-      "outputPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\obj\\",
+      "projectPath": "C:\\Users\\ahmed.ayaad\\ma-projects\\.Net\\Pharmacy\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
+      "packagesPath": "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ahmed.ayaad\\ma-projects\\.Net\\Pharmacy\\Pharmacy\\Pharmacy.Domain\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ahmad Ayad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ahmed.ayaad\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -777,6 +781,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
