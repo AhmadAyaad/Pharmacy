@@ -9,6 +9,6 @@ namespace Pharmacy.Core.Interfaces
     public interface ISupplierService
     {
         Task<bool> CreateSupplier(Supplier supplier);
-        Task<IEnumerable<Supplier>> GetSuppliers();
+        Task<List<Supplier>> GetSuppliers();
     }
 }

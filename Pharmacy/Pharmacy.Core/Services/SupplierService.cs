@@ -1,6 +1,8 @@
-﻿using Pharmacy.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,21 +13,22 @@ namespace Pharmacy.Core.Services
 {
     public class SupplierService : ISupplierService
     {
-        private readonly IRepository<Supplier> _supplierRepository;
-        private readonly IUnitOfWorkService _unitOfWorkService;
+        //private readonly IRepository<Supplier> _supplierRepository;
+        //private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SupplierService(IRepository<Supplier> supplierRepository, IUnitOfWorkService unitOfWorkService)
+
+        public SupplierService(IUnitOfWork unitOfWork)
         {
-            _supplierRepository = supplierRepository;
-            _unitOfWorkService = unitOfWorkService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<bool> CreateSupplier(Supplier supplier)
         {
-            var isCreated = await _supplierRepository.Create(supplier);
+            var isCreated = await _unitOfWork.SupplierRepository.Create(supplier);
             try
             {
                 if (isCreated)
-                    await _unitOfWorkService.SaveChagnesAsync();
+                    await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
@@ -35,11 +38,11 @@ namespace Pharmacy.Core.Services
             }
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers()
+        public async Task<List<Supplier>> GetSuppliers()
         {
             try
             {
-                var suppliers = await _supplierRepository.GetAll();
+                var suppliers = await _unitOfWork.SupplierRepository.GetAll().ToListAsync();
                 if (suppliers != null)
                     return suppliers;
             }

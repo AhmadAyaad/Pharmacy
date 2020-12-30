@@ -9,7 +9,7 @@ namespace Pharmacy.Core.Interfaces
     public interface IMedicineService
     {
         Task<bool> CreateMedicine(Medicine medicine);
-        Task<IEnumerable<Medicine>> GetMedicines();
+        Task<List<Medicine>> GetMedicines();
         Task<Medicine> GetMedicine(int id);
     }
 }

@@ -1,9 +1,12 @@
-﻿using Pharmacy.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,22 +14,25 @@ namespace Pharmacy.Core.Services
 {
     public class MedicineService : IMedicineService
     {
-        private readonly IRepository<Medicine> _medicineRepository;
-        private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MedicineService(IRepository<Medicine> medicineRepository , IUnitOfWorkService unitOfWorkService)
+        //private readonly IRepository<Medicine> _medicineRepository;
+        //private readonly IUnitOfWorkService _unitOfWorkService;
+
+        public MedicineService(IUnitOfWork unitOfWork)
         {
-            _medicineRepository = medicineRepository;
-            _unitOfWorkService = unitOfWorkService;
+            _unitOfWork = unitOfWork;
+            //_medicineRepository = medicineRepository;
+            //_unitOfWorkService = unitOfWorkService;
         }
 
         public async Task<bool> CreateMedicine(Medicine medicine)
         {
-            var isCreated = await _medicineRepository.Create(medicine);
+            var isCreated = await _unitOfWork.MedicineRepository.Create(medicine);
             try
             {
                 if (isCreated)
-                    await _unitOfWorkService.SaveChagnesAsync();
+                    await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
@@ -41,7 +47,7 @@ namespace Pharmacy.Core.Services
         {
             try
             {
-                var medicine = await _medicineRepository.GetById(id);
+                var medicine = await _unitOfWork.MedicineRepository.GetById(id);
                 if (medicine != null)
                     return medicine;
             }
@@ -52,11 +58,11 @@ namespace Pharmacy.Core.Services
             return new Medicine();
         }
 
-        public async Task<IEnumerable<Medicine>> GetMedicines()
+        public async Task<List<Medicine>> GetMedicines()
         {
             try
             {
-                var medicines = await _medicineRepository.GetAll();
+                var medicines = await _unitOfWork.MedicineRepository.GetAll().ToListAsync();
                 if (medicines != null)
                     return medicines;
             }

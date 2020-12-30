@@ -16,10 +16,13 @@ namespace Pharmacy.Infrastructure.Configuration
         public static void ConfigureServices(IServiceCollection services, string connectionString)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
-            services.AddScoped<IRepository<Medicine>, MedicineRepository>();
-            services.AddScoped<IRepository<Supplier>, SupplierRepository>();
-            services.AddScoped<IRepository<Unit>, UnitRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+            services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
+            services.AddScoped<IRepository<Unit>, Repository<Unit>>();
+            services.AddScoped<IRepository<Supplier>, Repository<Supplier>>();
+
+
+
         }
     }
 }
