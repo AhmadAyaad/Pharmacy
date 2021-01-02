@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExcelDataReader;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Pharmacy.API.Controllers
@@ -13,10 +18,12 @@ namespace Pharmacy.API.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
+        private readonly IHostingEnvironment _environment;
 
-        public MedicineController(IMedicineService medicineService)
+        public MedicineController(IMedicineService medicineService, IHostingEnvironment environment)
         {
             _medicineService = medicineService;
+            _environment = environment;
         }
 
         [HttpPost]
@@ -50,6 +57,37 @@ namespace Pharmacy.API.Controllers
             return BadRequest();
         }
 
+
+        [HttpPost("upload")]
+        public IActionResult CreateMedicines([FromForm] IFormFile form)
+        {
+
+            string fileName = $"{_environment.ContentRootPath}\\{form.FileName}";
+
+            using (var filestram = System.IO.File.Create(fileName))
+            {
+                form.CopyTo(filestram);
+                filestram.Flush();
+            }
+            List<Medicine> list = new List<Medicine>();
+            var fn = $"{Directory.GetCurrentDirectory()}\\{form.FileName}";
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            using (var stream = System.IO.File.Open(fn, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Medicine()
+                        {
+                            MedicineName = reader.GetValue(1) != null ? reader.GetValue(1).ToString() : ""
+                        }); ;
+                    }
+
+                }
+            }
+            return Ok(list);
+        }
         [HttpGet]
         public async Task<IActionResult> GetMedicines()
         {
