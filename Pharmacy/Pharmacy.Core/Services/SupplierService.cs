@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
@@ -22,8 +23,14 @@ namespace Pharmacy.Core.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<bool> CreateSupplier(Supplier supplier)
+        public async Task<bool> CreateSupplier(CreateSupplierDto createSupplierDto)
         {
+            var supplier = new Supplier
+            {
+                SupplierName = createSupplierDto.SupplierName,
+                Address = createSupplierDto.Address,
+                Phone = createSupplierDto.Phone
+            };
             var isCreated = await _unitOfWork.SupplierRepository.Create(supplier);
             try
             {

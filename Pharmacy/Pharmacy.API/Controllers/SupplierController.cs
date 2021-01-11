@@ -22,23 +22,17 @@ namespace Pharmacy.API.Controllers
             _supplierService = supplierService;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateSupplier(CreateSupplierDto createSupplierDto)
         {
             if (createSupplierDto != null)
             {
                 try
                 {
-                    var supplier = new Supplier
-                    {
-                        Address = createSupplierDto.Address,
-                        Phone = createSupplierDto.Phone,
-                        SupplierName = createSupplierDto.SupplierName
-                    };
-                    var isCreated = await _supplierService.CreateSupplier(supplier);
+                    var isCreated = await _supplierService.CreateSupplier(createSupplierDto);
 
                     if (isCreated)
-                        return Ok(supplier);
+                        return Ok(createSupplierDto);
                 }
                 catch (Exception e)
                 {

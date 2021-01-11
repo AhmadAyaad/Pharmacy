@@ -1,6 +1,7 @@
 ﻿using Pharmacy.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,5 +11,7 @@ namespace Pharmacy.Core.Interfaces
     {
         Task<Unit> GetUnit(int id);
         Task<List<Unit>> GetUnits();
+        Task<int> GetUnitIdByName(object name);
+
     }
 }

@@ -6,6 +6,10 @@ using Microsoft.Extensions.Hosting;
 using Pharmacy.Infrastructure.Configuration;
 using Microsoft.OpenApi.Models;
 using System;
+using Pharmacy.API.Util;
+using Pharmacy.Core.Dtos;
+using Pharmacy.Domain.Entities;
+using Pharmacy.Core.Mapper;
 
 namespace Pharmacy.API
 {
@@ -26,6 +30,19 @@ namespace Pharmacy.API
         {
             Config.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
             Pharmacy.Core.Configuration.Config.ConfigureServices(services);
+            
+            services.AddScoped<UploadFileUtil>();
+            services.AddScoped<MedicineMapper>();
+
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10000);//We set Time here 
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            services.AddDistributedMemoryCache();
+
             services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling =
                        Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
@@ -67,6 +84,8 @@ namespace Pharmacy.API
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
+            app.UseSession();
+
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();

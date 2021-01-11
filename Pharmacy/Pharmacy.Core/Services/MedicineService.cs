@@ -22,6 +22,21 @@ namespace Pharmacy.Core.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<bool> AddRangOfMedicines(List<Medicine> medicines)
+        {
+            try
+            {
+                await _unitOfWork.SpecificMedicineRepository.AddRangeOfMedicines(medicines);
+                await _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            return false;
+        }
+
         public async Task<bool> CreateMedicine(Medicine medicine)
         {
             var isCreated = await _unitOfWork.MedicineRepository.Create(medicine);

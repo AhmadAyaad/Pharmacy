@@ -18,11 +18,11 @@ namespace Pharmacy.Infrastructure.Data
 
             modelBuilder.Entity<Medicine>().HasIndex(m => m.MedicineName);
 
-            modelBuilder.Entity<Medicine>().Property(m => m.SellingPrice)
-                                            .IsRequired();
+            //modelBuilder.Entity<Medicine>().Property(m => m.SellingPrice)
+            //                                .IsRequired();
 
-            modelBuilder.Entity<Medicine>().Property(m => m.MedicineCode)
-                                           .IsRequired();
+            //modelBuilder.Entity<Medicine>().Property(m => m.MedicineCode)
+            //                               .IsRequired();
 
             modelBuilder.Entity<Medicine>().HasMany(s => s.Supplier_Medicine_Pharmacies)
                                            .WithOne(smp => smp.Medicine);

@@ -1,4 +1,5 @@
-﻿using Pharmacy.Domain.Entities;
+﻿using Pharmacy.Core.Dtos;
+using Pharmacy.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Pharmacy.Core.Interfaces
 {
     public interface ISupplierService
     {
-        Task<bool> CreateSupplier(Supplier supplier);
+        Task<bool> CreateSupplier(CreateSupplierDto createSupplierDto);
         Task<List<Supplier>> GetSuppliers();
     }
 }

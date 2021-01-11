@@ -1,14 +1,16 @@
-﻿using ExcelDataReader;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Pharmacy.API.Extensions;
+using Pharmacy.API.Util;
 using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
+using Pharmacy.Core.Mapper;
 using Pharmacy.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Pharmacy.API.Controllers
@@ -18,12 +20,24 @@ namespace Pharmacy.API.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
+        private readonly IUnitService _unitService;
         private readonly IHostingEnvironment _environment;
+        private readonly UploadFileUtil _uploadFileUtil;
+        private List<MedicneFileUploadDto> _list;
+        private readonly MedicineMapper _medicineMapper;
+        List<Medicine> _medicinesList;
 
-        public MedicineController(IMedicineService medicineService, IHostingEnvironment environment)
+        public MedicineController(IMedicineService medicineService, IUnitService unitService,
+                                  IHostingEnvironment environment, UploadFileUtil uploadFileUtil,
+                                     MedicineMapper medicineMapper)
         {
             _medicineService = medicineService;
+            _unitService = unitService;
             _environment = environment;
+            _uploadFileUtil = uploadFileUtil;
+            _list = new List<MedicneFileUploadDto>();
+            _medicineMapper = medicineMapper;
+            _medicinesList = new List<Medicine>();
         }
 
         [HttpPost]
@@ -59,34 +73,33 @@ namespace Pharmacy.API.Controllers
 
 
         [HttpPost("upload")]
-        public IActionResult CreateMedicines([FromForm] IFormFile form)
+        public async Task<IActionResult> CreateMedicines([FromForm] IFormFile form)
         {
+            _uploadFileUtil.CreateFile(_environment, form);
+            _list = await _uploadFileUtil.ReadFileAsync(form, _list);
+            _medicinesList = _medicineMapper.MapToMedicines(_list.Skip(1).ToList());
+            HttpContext.Session.SetObjectAsJson("medicines", _medicinesList);//store string value
 
-            string fileName = $"{_environment.ContentRootPath}\\{form.FileName}";
+            //try
+            //{
+            //    var isCreated = await _medicineService.AddRangOfMedicines(_medicinesList);
+            //    if (isCreated)
+            //        return Ok();
+            //}
+            //catch (Exception e)
+            //{
+            //    Trace.WriteLine(e.Message);
+            //}
+            return Ok(_medicinesList);
 
-            using (var filestram = System.IO.File.Create(fileName))
-            {
-                form.CopyTo(filestram);
-                filestram.Flush();
-            }
-            List<Medicine> list = new List<Medicine>();
-            var fn = $"{Directory.GetCurrentDirectory()}\\{form.FileName}";
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            using (var stream = System.IO.File.Open(fn, FileMode.Open, FileAccess.Read))
-            {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(new Medicine()
-                        {
-                            MedicineName = reader.GetValue(1) != null ? reader.GetValue(1).ToString() : ""
-                        }); ;
-                    }
-
-                }
-            }
-            return Ok(list);
+            //return BadRequest("Error in file formatting");
+        }
+        [HttpPost("addToDb")]
+        public async Task<IActionResult> AddMedicinesToDb(List<Medicine> medicines)
+        {
+            //var medicines = HttpContext.Session.GetObjectFromJson<List<Medicine>>("medicines");
+            await _medicineService.AddRangOfMedicines(medicines);
+            return Ok(medicines);
         }
         [HttpGet]
         public async Task<IActionResult> GetMedicines()

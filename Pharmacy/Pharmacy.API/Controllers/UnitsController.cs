@@ -21,11 +21,17 @@ namespace Pharmacy.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUnits()
         {
-           var units =  await _unitService.GetUnits();
+            var units = await _unitService.GetUnits();
             if (units != null)
                 return Ok(units);
             return NotFound();
-        } 
+        }
+        [HttpGet("bla/{name}")]
+        public async Task<IActionResult> GetBla(string name)
+        {
+            return Ok(await _unitService.GetUnitIdByName(name));
+        }
+
     }
 
 }

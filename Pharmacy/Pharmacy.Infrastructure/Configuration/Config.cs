@@ -18,7 +18,9 @@ namespace Pharmacy.Infrastructure.Configuration
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
+            services.AddScoped<IMedicineRepository, MedicineRepoistory>();
             services.AddScoped<IRepository<Unit>, Repository<Unit>>();
+            services.AddScoped<IUnitRepository, UnitReposiotry>();
             services.AddScoped<IRepository<Supplier>, Repository<Supplier>>();
 
 

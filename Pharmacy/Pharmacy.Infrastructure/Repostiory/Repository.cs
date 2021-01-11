@@ -14,7 +14,7 @@ namespace Pharmacy.Infrastructure.Repostiory
     public class Repository<T> : IRepository<T> where T : class
     {
         readonly DbSet<T> entity;
-        DataContext _context;
+        public DataContext _context { get; }
         public Repository(DataContext context)
         {
             _context = context;

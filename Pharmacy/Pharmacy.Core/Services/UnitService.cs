@@ -6,6 +6,7 @@ using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,12 @@ namespace Pharmacy.Core.Services
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<int> GetUnitIdByName(object name)
+        {
+            return await _unitOfWork.SpecficUnitRepository.GetUnitIdByName(name);
+        }
+
         public async Task<Unit> GetUnit(int id)
         {
             try
