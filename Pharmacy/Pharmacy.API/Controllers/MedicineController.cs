@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
-using Pharmacy.API.Extensions;
 using Pharmacy.API.Util;
 using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
@@ -48,19 +47,9 @@ namespace Pharmacy.API.Controllers
             {
                 try
                 {
-                    var medicine = new Medicine
-                    {
-                        MedicineCode = createMedicineDto.MedicineCode,
-                        MedicineName = createMedicineDto.MedicineName,
-                        SellingPrice = createMedicineDto.SellingPrice,
-                        ExpireDate = createMedicineDto.ExpireDate,
-                        UnitId = createMedicineDto.UnitId
-                    };
-
-                    var isCreated = await _medicineService.CreateMedicine(medicine);
-
+                    var isCreated = await _medicineService.CreateMedicine(createMedicineDto);
                     if (isCreated)
-                        return Ok(medicine);
+                        return Ok(createMedicineDto);
                 }
                 catch (Exception e)
                 {
@@ -78,7 +67,6 @@ namespace Pharmacy.API.Controllers
             _uploadFileUtil.CreateFile(_environment, form);
             _list = await _uploadFileUtil.ReadFileAsync(form, _list);
             _medicinesList = _medicineMapper.MapToMedicines(_list.Skip(1).ToList());
-            HttpContext.Session.SetObjectAsJson("medicines", _medicinesList);//store string value
 
             //try
             //{
@@ -97,7 +85,6 @@ namespace Pharmacy.API.Controllers
         [HttpPost("addToDb")]
         public async Task<IActionResult> AddMedicinesToDb(List<Medicine> medicines)
         {
-            //var medicines = HttpContext.Session.GetObjectFromJson<List<Medicine>>("medicines");
             await _medicineService.AddRangOfMedicines(medicines);
             return Ok(medicines);
         }

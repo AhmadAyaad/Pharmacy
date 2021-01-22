@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Pfr/rPIvL+oeuSHMak6DQpX/yH0kfxajAiGp0bT2sDO0lKdbga+eibcbJUTv0HvUDMM3tZMFrgauwx/paM5L/A==",
+  "dgSpecHash": "3jKQnbhSyZLfPfNCH8IKoMvELxvOE3Lau7oW3Ut5LCsG639FD/vcNgpxq2bU0aayo4yXi4ZHUqHBMWcGUgK3GA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmed.ayaad\\ma-projects\\.Net\\Pharmacy\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
   "expectedPackageFiles": [
@@ -22,8 +22,7 @@
     "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
-    "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
-    "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+    "C:\\Users\\ahmed.ayaad\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

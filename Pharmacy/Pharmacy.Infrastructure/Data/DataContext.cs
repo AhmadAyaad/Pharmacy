@@ -18,11 +18,9 @@ namespace Pharmacy.Infrastructure.Data
 
             modelBuilder.Entity<Medicine>().HasIndex(m => m.MedicineName);
 
-            //modelBuilder.Entity<Medicine>().Property(m => m.SellingPrice)
-            //                                .IsRequired();
 
-            //modelBuilder.Entity<Medicine>().Property(m => m.MedicineCode)
-            //                               .IsRequired();
+            modelBuilder.Entity<Medicine>().Property(m => m.NationalCode)
+                                           .IsRequired();
 
             modelBuilder.Entity<Medicine>().HasMany(s => s.Supplier_Medicine_Pharmacies)
                                            .WithOne(smp => smp.Medicine);
@@ -31,10 +29,21 @@ namespace Pharmacy.Infrastructure.Data
                         .HasMany(m => m.PatientTransactions)
                         .WithOne(pt => pt.Medicine);
 
-
-
             #endregion
 
+            #region ExpireDate Medicine Config
+
+            modelBuilder.Entity<MedicineExpireDate>()
+                        .HasKey(med => new { med.MedicineId, med.ExpireDateId });
+            modelBuilder.Entity<MedicineExpireDate>()
+                        .HasOne(med => med.Medicine)
+                        .WithMany(b => b.MedicineExpireDates)
+                        .HasForeignKey(med => med.MedicineId);
+            modelBuilder.Entity<MedicineExpireDate>()
+                        .HasOne(med => med.ExpireDate)
+                        .WithMany(c => c.MedicineExpireDates)
+                        .HasForeignKey(med => med.ExpireDateId);
+            #endregion
             #region Unit Config
             modelBuilder.Entity<Unit>().Property(u => u.UnitName).IsRequired();
 
@@ -113,6 +122,7 @@ namespace Pharmacy.Infrastructure.Data
 
         }
         public virtual DbSet<Medicine> Medicines { get; set; }
+        public virtual DbSet<ExpireDate> ExpireDates { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Pharmacy.Domain.Entities.Pharmacy> Pharmacies { get; set; }

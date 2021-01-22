@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210120152512_LinkExpDateToMedicine")]
+    partial class LinkExpDateToMedicine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,10 +31,15 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<DateTime>("ExpireationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MedicineId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ProductionDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ExpireDateId");
+
+                    b.HasIndex("MedicineId");
 
                     b.ToTable("ExpireDates");
                 });
@@ -75,21 +82,6 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("Medicines");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExpireDateId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MedicineId", "ExpireDateId");
-
-                    b.HasIndex("ExpireDateId");
-
-                    b.ToTable("MedicineExpireDate");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Patient", b =>
@@ -278,6 +270,15 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Units");
                 });
 
+            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
+                {
+                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
+                        .WithMany("ExpireDates")
+                        .HasForeignKey("MedicineId");
+
+                    b.Navigation("Medicine");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
                 {
                     b.HasOne("Pharmacy.Domain.Entities.Unit", "Unit")
@@ -285,25 +286,6 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasForeignKey("UnitId");
 
                     b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.ExpireDate", "ExpireDate")
-                        .WithMany("MedicineExpireDates")
-                        .HasForeignKey("ExpireDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany("MedicineExpireDates")
-                        .HasForeignKey("MedicineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExpireDate");
-
-                    b.Navigation("Medicine");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.PatientTransaction", b =>
@@ -364,14 +346,9 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
-                {
-                    b.Navigation("MedicineExpireDates");
-                });
-
             modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
                 {
-                    b.Navigation("MedicineExpireDates");
+                    b.Navigation("ExpireDates");
 
                     b.Navigation("PatientTransactions");
 

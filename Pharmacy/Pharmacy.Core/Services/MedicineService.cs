@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Enums;
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.UnitOfWork;
 using System;
@@ -37,8 +39,21 @@ namespace Pharmacy.Core.Services
             return false;
         }
 
-        public async Task<bool> CreateMedicine(Medicine medicine)
+
+        public async Task<bool> CreateMedicine(CreateMedicineDto createMedicineDto)
         {
+            Enum.TryParse(createMedicineDto.ProductType, out ProductType productType);
+            var medicine = new Medicine
+            {
+                MedicineCode = createMedicineDto.MedicineCode,
+                NationalCode = createMedicineDto.NationalCode,
+                ProductType = productType,
+                UnitId = createMedicineDto.UnitId,
+                MedicineName = createMedicineDto.MedicineName,
+                SellingPrice = createMedicineDto.SellingPrice
+
+            };
+
             var isCreated = await _unitOfWork.MedicineRepository.Create(medicine);
             try
             {
