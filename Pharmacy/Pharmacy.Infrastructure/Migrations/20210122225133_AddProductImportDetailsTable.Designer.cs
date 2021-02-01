@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210122225133_AddProductImportDetailsTable")]
+    partial class AddProductImportDetailsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,9 +200,6 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ApprovalNumber")
-                        .HasColumnType("int");
-
                     b.Property<int>("ImportOrderNumber")
                         .HasColumnType("int");
 
@@ -378,7 +377,7 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
                 {
                     b.HasOne("Pharmacy.Domain.Entities.Supplier_Medicine_Pharmacy", "Supplier_Medicine_Pharmacy")
-                        .WithMany("ProductImportDetails")
+                        .WithMany()
                         .HasForeignKey("Supplier_Medicine_Pharmacy_Id");
 
                     b.Navigation("Supplier_Medicine_Pharmacy");
@@ -441,11 +440,6 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier", b =>
                 {
                     b.Navigation("Supplier_Medicine_Pharmacies");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier_Medicine_Pharmacy", b =>
-                {
-                    b.Navigation("ProductImportDetails");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Unit", b =>

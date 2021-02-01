@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Pharmacy.API.Controllers
 {
@@ -24,11 +25,15 @@ namespace Pharmacy.API.Controllers
         private readonly UploadFileUtil _uploadFileUtil;
         private List<MedicneFileUploadDto> _list;
         private readonly MedicineMapper _medicineMapper;
+        private readonly ILogger<MedicineController> _logger;
         List<Medicine> _medicinesList;
 
-        public MedicineController(IMedicineService medicineService, IUnitService unitService,
-                                  IHostingEnvironment environment, UploadFileUtil uploadFileUtil,
-                                     MedicineMapper medicineMapper)
+        public MedicineController(IMedicineService medicineService, 
+                                  IUnitService unitService,
+                                  IHostingEnvironment environment,
+                                  UploadFileUtil uploadFileUtil,
+                                  MedicineMapper medicineMapper,
+                                  ILogger<MedicineController> logger)
         {
             _medicineService = medicineService;
             _unitService = unitService;
@@ -36,6 +41,7 @@ namespace Pharmacy.API.Controllers
             _uploadFileUtil = uploadFileUtil;
             _list = new List<MedicneFileUploadDto>();
             _medicineMapper = medicineMapper;
+            _logger = logger;
             _medicinesList = new List<Medicine>();
         }
 
@@ -91,6 +97,7 @@ namespace Pharmacy.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMedicines()
         {
+            _logger.LogInformation("Info logging");
             var medicines = await _medicineService.GetMedicines();
             if (medicines != null)
                 return Ok(medicines);

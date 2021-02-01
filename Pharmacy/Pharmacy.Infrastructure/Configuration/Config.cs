@@ -22,8 +22,11 @@ namespace Pharmacy.Infrastructure.Configuration
             services.AddScoped<IRepository<Unit>, Repository<Unit>>();
             services.AddScoped<IUnitRepository, UnitReposiotry>();
             services.AddScoped<IRepository<Supplier>, Repository<Supplier>>();
+            services.AddScoped<IRepository<ProductImportDetails>,
+                               Repository<ProductImportDetails>>();
 
-
+            services.AddScoped<IRepository<Supplier_Medicine_Pharmacy>,
+                        Repository<Supplier_Medicine_Pharmacy>>();
 
         }
     }

@@ -120,6 +120,12 @@ namespace Pharmacy.Infrastructure.Data
 
             #endregion
 
+
+
+            #region PorudtcImportDetails Config
+
+            #endregion
+
         }
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<ExpireDate> ExpireDates { get; set; }
@@ -129,6 +135,7 @@ namespace Pharmacy.Infrastructure.Data
         public virtual DbSet<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
+        public virtual DbSet<ProductImportDetails> ProductImportDetails { get; set; }
 
 
     }

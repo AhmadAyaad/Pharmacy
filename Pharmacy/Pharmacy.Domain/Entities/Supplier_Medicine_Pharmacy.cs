@@ -18,5 +18,6 @@ namespace Pharmacy.Domain.Entities
         public int? Pharamcy_Supplier_Id { get; set; }
         public bool IsReturned { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public ICollection<ProductImportDetails> ProductImportDetails { get; set; } = new HashSet<ProductImportDetails>();
     }
 }
