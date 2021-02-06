@@ -16,6 +16,7 @@ namespace Pharmacy.Core.Configuration
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IProductImportDetailsService, ProductImportDetailsService>();
             services.AddScoped<ISupplierMedicinePharamcyService, SupplierMedicinePharamcyService>();
+            services.AddScoped<IPharamcyService, PharmacyService>();
 
         }
     }

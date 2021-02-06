@@ -7,7 +7,6 @@ namespace Pharmacy.Core.Dtos
 {
     public class CreateProductFromSupplierDto
     {
-       
         public int ImportOrderNumber { get; set; }
         public int SupplyOrderNumber { get; set; }
         public int ApprovalNumber { get; set; }

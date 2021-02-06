@@ -19,9 +19,7 @@ namespace Pharmacy.Infrastructure.Data
             modelBuilder.Entity<Medicine>().HasIndex(m => m.MedicineName);
 
 
-            modelBuilder.Entity<Medicine>().Property(m => m.NationalCode)
-                                           .IsRequired();
-
+           
             modelBuilder.Entity<Medicine>().HasMany(s => s.Supplier_Medicine_Pharmacies)
                                            .WithOne(smp => smp.Medicine);
 

@@ -19,6 +19,7 @@ namespace Pharmacy.Infrastructure.UnitOfWork
             SpecficUnitRepository = new UnitReposiotry(_context);
             ProductImportDetailsRepository = new Repository<ProductImportDetails>(_context);
             Supplier_Medicine_PharmacyRepository = new Repository<Supplier_Medicine_Pharmacy>(_context);
+            PharmacyRepository = new Repository<Pharmacy.Domain.Entities.Pharmacy>(_context);
         }
 
         public IRepository<Medicine> MedicineRepository { get; }
@@ -31,6 +32,8 @@ namespace Pharmacy.Infrastructure.UnitOfWork
 
         public IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
         public IRepository<Supplier_Medicine_Pharmacy> Supplier_Medicine_PharmacyRepository { get; }
+
+        public IRepository<Domain.Entities.Pharmacy> PharmacyRepository { get; }
 
         public async Task<int> SaveChangesAsync()
         {

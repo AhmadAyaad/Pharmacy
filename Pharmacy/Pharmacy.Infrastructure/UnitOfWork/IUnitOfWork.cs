@@ -17,6 +17,7 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         IRepository<Supplier> SupplierRepository { get; }
         IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
         IRepository<Supplier_Medicine_Pharmacy> Supplier_Medicine_PharmacyRepository { get; }
+        IRepository<Pharmacy.Domain.Entities.Pharmacy> PharmacyRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }
