@@ -12,3 +12,17 @@ C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csproj.CopyComplete
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.dll
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.pdb
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.deps.json
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Core.pdb
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Domain.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Infrastructure.pdb
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\bin\Debug\netcoreapp3.1\Pharmacy.Domain.pdb
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csprojAssemblyReference.cache
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.AssemblyInfoInputs.cache
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.AssemblyInfo.cs
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csproj.CoreCompileInputs.cache
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.csproj.CopyComplete
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.Core\obj\Debug\netcoreapp3.1\Pharmacy.Core.pdb

@@ -14,6 +14,10 @@ namespace Pharmacy.Core.Configuration
             services.AddScoped<IMedicineService, MedicineService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IProductImportDetailsService, ProductImportDetailsService>();
+            services.AddScoped<ISupplierMedicinePharamcyService, SupplierMedicinePharamcyService>();
+            services.AddScoped<IPharamcyService, PharmacyService>();
+
         }
     }
 }

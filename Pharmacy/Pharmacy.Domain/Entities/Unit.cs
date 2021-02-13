@@ -9,8 +9,6 @@ namespace Pharmacy.Domain.Entities
         public int UnitId { get; set; }
         public string UnitName { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
-        //public int? MedicineId { get; set; }
-        //public virtual Medicine Medicine { get; set; }
         public ICollection<Medicine> Medicines = new HashSet<Medicine>();
     }
 }

@@ -19,6 +19,24 @@ namespace Pharmacy.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
+                {
+                    b.Property<int>("ExpireDateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("ExpireationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ProductionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ExpireDateId");
+
+                    b.ToTable("ExpireDates");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
                 {
                     b.Property<int>("MedicineId")
@@ -29,11 +47,7 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("MedicineCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MedicineName")
@@ -41,7 +55,13 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<decimal>("SellingPrice")
+                    b.Property<string>("NationalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("SellingPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UnitId")
@@ -54,6 +74,21 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
+                {
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpireDateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MedicineId", "ExpireDateId");
+
+                    b.HasIndex("ExpireDateId");
+
+                    b.ToTable("MedicineExpireDate");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Patient", b =>
@@ -147,12 +182,44 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<bool>("ISEligibleToSellToPatients")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PharmacyTypeEnum")
+                        .HasColumnType("int");
 
                     b.HasKey("PharmacyTypeId");
 
                     b.ToTable("PharmacyType");
+                });
+
+            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
+                {
+                    b.Property<int>("ProductImportDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ApprovalNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImportOrderNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PurchaseFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("Supplier_Medicine_Pharmacy_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplyOrderNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductImportDetailsId");
+
+                    b.HasIndex("Supplier_Medicine_Pharmacy_Id");
+
+                    b.ToTable("ProductImportDetails");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier", b =>
@@ -251,6 +318,25 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
+                {
+                    b.HasOne("Pharmacy.Domain.Entities.ExpireDate", "ExpireDate")
+                        .WithMany("MedicineExpireDates")
+                        .HasForeignKey("ExpireDateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
+                        .WithMany("MedicineExpireDates")
+                        .HasForeignKey("MedicineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpireDate");
+
+                    b.Navigation("Medicine");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.Entities.PatientTransaction", b =>
                 {
                     b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
@@ -288,6 +374,15 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("PharmacyType");
                 });
 
+            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
+                {
+                    b.HasOne("Pharmacy.Domain.Entities.Supplier_Medicine_Pharmacy", "Supplier_Medicine_Pharmacy")
+                        .WithMany("ProductImportDetails")
+                        .HasForeignKey("Supplier_Medicine_Pharmacy_Id");
+
+                    b.Navigation("Supplier_Medicine_Pharmacy");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier_Medicine_Pharmacy", b =>
                 {
                     b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
@@ -309,8 +404,15 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("Supplier");
                 });
 
+            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
+                {
+                    b.Navigation("MedicineExpireDates");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
                 {
+                    b.Navigation("MedicineExpireDates");
+
                     b.Navigation("PatientTransactions");
 
                     b.Navigation("Supplier_Medicine_Pharmacies");
@@ -338,6 +440,11 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier", b =>
                 {
                     b.Navigation("Supplier_Medicine_Pharmacies");
+                });
+
+            modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier_Medicine_Pharmacy", b =>
+                {
+                    b.Navigation("ProductImportDetails");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Unit", b =>

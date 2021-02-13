@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Pharmacy.API.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
-using Pharmacy.Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Pharmacy.API.Controllers
@@ -22,23 +18,17 @@ namespace Pharmacy.API.Controllers
             _supplierService = supplierService;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateSupplier(CreateSupplierDto createSupplierDto)
         {
             if (createSupplierDto != null)
             {
                 try
                 {
-                    var supplier = new Supplier
-                    {
-                        Address = createSupplierDto.Address,
-                        Phone = createSupplierDto.Phone,
-                        SupplierName = createSupplierDto.SupplierName
-                    };
-                    var isCreated = await _supplierService.CreateSupplier(supplier);
+                    var isCreated = await _supplierService.CreateSupplier(createSupplierDto);
 
                     if (isCreated)
-                        return Ok(supplier);
+                        return Ok(createSupplierDto);
                 }
                 catch (Exception e)
                 {
@@ -48,9 +38,9 @@ namespace Pharmacy.API.Controllers
             return BadRequest();
 
         }
-    
-    
-        [HttpGet] 
+
+
+        [HttpGet]
         public async Task<IActionResult> GetSuppliers()
         {
             var suppliers = await _supplierService.GetSuppliers();
@@ -60,6 +50,6 @@ namespace Pharmacy.API.Controllers
 
 
         }
-    
+
     }
 }

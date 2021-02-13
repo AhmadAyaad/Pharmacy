@@ -1,6 +1,9 @@
-﻿using Pharmacy.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Dtos;
+using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,19 +14,28 @@ namespace Pharmacy.Core.Services
 {
     public class SupplierService : ISupplierService
     {
-        private readonly IRepository<Supplier> _supplierRepository;
+        //private readonly IRepository<Supplier> _supplierRepository;
+        //private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SupplierService(IRepository<Supplier> supplierRepository)
+
+        public SupplierService(IUnitOfWork unitOfWork)
         {
-            _supplierRepository = supplierRepository;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<bool> CreateSupplier(Supplier supplier)
+        public async Task<bool> CreateSupplier(CreateSupplierDto createSupplierDto)
         {
-            var isCreated = await _supplierRepository.Create(supplier);
+            var supplier = new Supplier
+            {
+                SupplierName = createSupplierDto.SupplierName,
+                Address = createSupplierDto.Address,
+                Phone = createSupplierDto.Phone
+            };
+            var isCreated = await _unitOfWork.SupplierRepository.Create(supplier);
             try
             {
                 if (isCreated)
-                    await _supplierRepository.SaveChangesAsync();
+                    await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
@@ -33,11 +45,11 @@ namespace Pharmacy.Core.Services
             }
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers()
+        public async Task<List<Supplier>> GetSuppliers()
         {
             try
             {
-                var suppliers = await _supplierRepository.GetAll();
+                var suppliers = await _unitOfWork.SupplierRepository.GetAll().ToListAsync();
                 if (suppliers != null)
                     return suppliers;
             }

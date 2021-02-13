@@ -1,9 +1,14 @@
-﻿using Pharmacy.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.Core.Dtos;
+using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Enums;
 using Pharmacy.Domain.Interfaces;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,20 +16,49 @@ namespace Pharmacy.Core.Services
 {
     public class MedicineService : IMedicineService
     {
-        private readonly IRepository<Medicine> _medicineRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MedicineService(IRepository<Medicine> medicineRepository)
+
+        public MedicineService(IUnitOfWork unitOfWork)
         {
-            _medicineRepository = medicineRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> CreateMedicine(Medicine medicine)
+        public async Task<bool> AddRangOfMedicines(List<Medicine> medicines)
         {
-            var isCreated = await _medicineRepository.Create(medicine);
+            try
+            {
+                await _unitOfWork.SpecificMedicineRepository.AddRangeOfMedicines(medicines);
+                await _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            return false;
+        }
+
+
+        public async Task<bool> CreateMedicine(CreateMedicineDto createMedicineDto)
+        {
+            Enum.TryParse(createMedicineDto.ProductType, out ProductType productType);
+            var medicine = new Medicine
+            {
+                MedicineCode = createMedicineDto.MedicineCode,
+                NationalCode = createMedicineDto.NationalCode,
+                ProductType = productType,
+                UnitId = createMedicineDto.UnitId,
+                MedicineName = createMedicineDto.MedicineName,
+                SellingPrice = createMedicineDto.SellingPrice
+
+            };
+
+            var isCreated = await _unitOfWork.MedicineRepository.Create(medicine);
             try
             {
                 if (isCreated)
-                    await _medicineRepository.SaveChangesAsync();
+                    await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch (Exception e)
@@ -39,7 +73,7 @@ namespace Pharmacy.Core.Services
         {
             try
             {
-                var medicine = await _medicineRepository.GetById(id);
+                var medicine = await _unitOfWork.MedicineRepository.GetById(id);
                 if (medicine != null)
                     return medicine;
             }
@@ -50,11 +84,11 @@ namespace Pharmacy.Core.Services
             return new Medicine();
         }
 
-        public async Task<IEnumerable<Medicine>> GetMedicines()
+        public async Task<List<Medicine>> GetMedicines()
         {
             try
             {
-                var medicines = await _medicineRepository.GetAll();
+                var medicines = await _unitOfWork.MedicineRepository.GetAll().ToListAsync();
                 if (medicines != null)
                     return medicines;
             }
@@ -65,9 +99,5 @@ namespace Pharmacy.Core.Services
             return new List<Medicine>();
         }
 
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _medicineRepository.SaveChangesAsync();
-        }
     }
 }
