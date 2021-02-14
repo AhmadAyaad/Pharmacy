@@ -26,11 +26,6 @@ namespace Pharmacy.API.Controllers
                 return Ok(units);
             return NotFound();
         }
-        [HttpGet("bla/{name}")]
-        public async Task<IActionResult> GetBla(string name)
-        {
-            return Ok(await _unitService.GetUnitIdByName(name));
-        }
 
     }
 

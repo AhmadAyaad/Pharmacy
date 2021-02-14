@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Pharmacy.API.Controllers
 {
-   
+
     [ApiController]
     public class PharmacyController : ControllerBase
     {
@@ -18,6 +14,7 @@ namespace Pharmacy.API.Controllers
         {
             _pharamcyService = pharamcyService;
         }
+
         [Route("api/largePharmacies")]
         [HttpGet]
         public Task<IActionResult> GetLargePharamcies()
@@ -26,6 +23,15 @@ namespace Pharmacy.API.Controllers
             if (largePharmacies != null)
                 return Task.Run<IActionResult>(() => Ok(largePharmacies));
             return Task.Run<IActionResult>(() => NotFound());
+        }
+
+        [HttpGet("api/pharmacyProducts")]
+        public async Task<IActionResult> GetPharmacyProducts([FromQuery(Name ="name")]string pharmacyName)
+        {
+            var pharmacyProducts = await _pharamcyService.GetPharmacy(pharmacyName:pharmacyName);
+            if (pharmacyProducts != null)
+                return Ok(pharmacyProducts);
+            return NotFound();
         }
 
     }

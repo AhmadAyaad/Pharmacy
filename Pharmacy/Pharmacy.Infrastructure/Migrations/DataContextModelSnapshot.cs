@@ -8,7 +8,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -307,6 +307,32 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.HasKey("UnitId");
 
                     b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("Pharmacy.Infrastructure.Views.PharmacyProducts", b =>
+                {
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MedicineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SupplierName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToView("View_pharmacyProducts");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>

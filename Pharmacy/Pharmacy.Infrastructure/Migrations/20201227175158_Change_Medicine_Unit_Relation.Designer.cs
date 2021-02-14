@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20201227175158_Change_Medicine_Unit_Relation")]
     partial class Change_Medicine_Unit_Relation
     {

@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20210204192426_MakeMedicineNationalCodeNullable")]
     partial class MakeMedicineNationalCodeNullable
     {

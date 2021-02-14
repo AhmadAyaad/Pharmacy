@@ -3,9 +3,9 @@ using Pharmacy.Domain.Entities;
 
 namespace Pharmacy.Infrastructure.Data
 {
-    public class DataContext : DbContext
+    public class PharmacyDbContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options)
         {
 
         }
@@ -19,7 +19,7 @@ namespace Pharmacy.Infrastructure.Data
             modelBuilder.Entity<Medicine>().HasIndex(m => m.MedicineName);
 
 
-           
+
             modelBuilder.Entity<Medicine>().HasMany(s => s.Supplier_Medicine_Pharmacies)
                                            .WithOne(smp => smp.Medicine);
 
@@ -124,6 +124,15 @@ namespace Pharmacy.Infrastructure.Data
 
             #endregion
 
+
+
+            modelBuilder.Entity<Pharmacy.Infrastructure.Views.PharmacyProducts>(eb =>
+                          {
+                              eb.HasNoKey();
+                              eb.ToView("View_pharmacyProducts");
+                          }
+                          );
+
         }
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<ExpireDate> ExpireDates { get; set; }
@@ -134,6 +143,7 @@ namespace Pharmacy.Infrastructure.Data
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<ProductImportDetails> ProductImportDetails { get; set; }
+        public virtual DbSet<Pharmacy.Infrastructure.Views.PharmacyProducts> PharmacyProducts { get; set; }
 
 
     }

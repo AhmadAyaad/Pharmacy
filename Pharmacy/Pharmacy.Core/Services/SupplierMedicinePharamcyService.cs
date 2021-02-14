@@ -3,9 +3,7 @@ using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Services
@@ -42,6 +40,8 @@ namespace Pharmacy.Core.Services
             catch (Exception e)
             {
                 Trace.WriteLine(e.Message);
+                return false;
+
             }
             return false;
         }

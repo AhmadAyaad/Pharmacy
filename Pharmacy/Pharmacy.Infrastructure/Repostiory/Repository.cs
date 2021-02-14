@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Data;
-using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Infrastructure.Repostiory
@@ -14,8 +12,8 @@ namespace Pharmacy.Infrastructure.Repostiory
     public class Repository<T> : IRepository<T> where T : class
     {
         readonly DbSet<T> entity;
-        public DataContext _context { get; }
-        public Repository(DataContext context)
+        public PharmacyDbContext _context { get; }
+        public Repository(PharmacyDbContext context)
         {
             _context = context;
             entity = context.Set<T>();
@@ -53,6 +51,7 @@ namespace Pharmacy.Infrastructure.Repostiory
 
         public async Task<T> GetById(int id)
         {
+
             return await entity.FindAsync(id);
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pharmacy.Domain.Entities
+﻿namespace Pharmacy.Domain.Entities
 {
     public class MedicineExpireDate
     {

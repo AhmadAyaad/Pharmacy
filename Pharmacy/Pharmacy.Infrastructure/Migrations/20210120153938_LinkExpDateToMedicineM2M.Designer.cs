@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20210120153938_LinkExpDateToMedicineM2M")]
     partial class LinkExpDateToMedicineM2M
     {

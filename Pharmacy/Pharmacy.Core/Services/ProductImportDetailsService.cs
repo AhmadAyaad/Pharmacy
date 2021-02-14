@@ -2,22 +2,20 @@
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Enums;
-using Pharmacy.Domain.Interfaces;
+using Pharmacy.Infrastructure.UnitOfWork;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Services
 {
     public class ProductImportDetailsService : IProductImportDetailsService
     {
-        readonly IRepository<ProductImportDetails> _productImportRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductImportDetailsService(IRepository<ProductImportDetails> productImportRepository)
+        public ProductImportDetailsService(IUnitOfWork unitOfWork)
         {
-            _productImportRepository = productImportRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<bool> CreateProductImport(CreateProductFromSupplierDto createProductFromSupplierDto)
         {
@@ -33,9 +31,9 @@ namespace Pharmacy.Core.Services
                         ProductType = productType,
                         PurchaseFee = createProductFromSupplierDto.PurchaseFee,
                         SupplyOrderNumber = createProductFromSupplierDto.SupplyOrderNumber,
-                        ApprovalNumber =createProductFromSupplierDto.ApprovalNumber
+                        ApprovalNumber = createProductFromSupplierDto.ApprovalNumber
                     };
-                    var isCreated = await _productImportRepository.Create(productImportDetails);
+                    var isCreated = await _unitOfWork.ProductImportDetailsRepository.Create(productImportDetails);
                     if (isCreated)
                         return true;
                 }

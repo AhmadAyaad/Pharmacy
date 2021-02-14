@@ -2,20 +2,16 @@
 using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Services
 {
     public class SupplierService : ISupplierService
     {
-        //private readonly IRepository<Supplier> _supplierRepository;
-        //private readonly IUnitOfWorkService _unitOfWorkService;
         private readonly IUnitOfWork _unitOfWork;
 
 

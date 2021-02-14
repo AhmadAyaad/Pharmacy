@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Services

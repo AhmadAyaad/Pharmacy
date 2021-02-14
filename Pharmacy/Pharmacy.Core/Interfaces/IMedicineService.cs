@@ -1,8 +1,6 @@
 ﻿using Pharmacy.Core.Dtos;
 using Pharmacy.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Interfaces
@@ -11,6 +9,7 @@ namespace Pharmacy.Core.Interfaces
     {
         Task<bool> CreateMedicine(CreateMedicineDto createMedicineDto);
         Task<List<Medicine>> GetMedicines();
+        Task<List<Medicine>> GetMedicinesWithUnitNames();
         Task<Medicine> GetMedicine(int id);
         Task<bool> AddRangOfMedicines(List<Medicine> medicines);
 

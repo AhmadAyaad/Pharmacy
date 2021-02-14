@@ -3,14 +3,13 @@ using Pharmacy.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Infrastructure.Repostiory
 {
     public class MedicineRepoistory : Repository<Medicine>, IMedicineRepository
     {
-        public MedicineRepoistory(DataContext context) : base(context)
+        public MedicineRepoistory(PharmacyDbContext context) : base(context)
         {
 
         }

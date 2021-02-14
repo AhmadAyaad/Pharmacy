@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20201226213937_Add-IsEligible-To-Sell-To-Patients-Column-to-PharmacyType-table")]
     partial class AddIsEligibleToSellToPatientsColumntoPharmacyTypetable
     {

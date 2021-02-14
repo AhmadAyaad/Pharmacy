@@ -14,7 +14,7 @@ namespace Pharmacy.Domain.Entities
         public ICollection<MedicineExpireDate> MedicineExpireDates { get; set; } = new HashSet<MedicineExpireDate>();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int? UnitId { get; set; }
-        public virtual Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; } = new Unit();
         public ProductType ProductType { get; set; }
         public ICollection<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
                                                      = new HashSet<Supplier_Medicine_Pharmacy>();

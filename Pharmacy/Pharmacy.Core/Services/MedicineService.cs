@@ -3,13 +3,10 @@ using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Enums;
-using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Services
@@ -98,6 +95,35 @@ namespace Pharmacy.Core.Services
             }
             return new List<Medicine>();
         }
+
+        public async Task<List<Medicine>> GetMedicinesWithUnitNames()
+        {
+            try
+            {
+                var mappedMedicines = new List<Medicine>();
+                var medicines = await _unitOfWork.MedicineRepository.GetAll().Include(m => m.Unit).ToListAsync();
+                if (medicines != null)
+                {
+                    foreach (var item in medicines)
+                    {
+                        mappedMedicines.Add(
+                            new Medicine() { MedicineName = $"{item.MedicineName} {item.Unit.UnitName}"  , MedicineId = item.MedicineId});
+                    };
+                }
+                return mappedMedicines;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            return new List<Medicine>();
+        }
+
+
+
+
+
+
 
     }
 }

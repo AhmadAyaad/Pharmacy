@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20201224225354_MakeMedicineId-UnitTable-Nullable")]
     partial class MakeMedicineIdUnitTableNullable
     {

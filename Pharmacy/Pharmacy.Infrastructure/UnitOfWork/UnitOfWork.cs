@@ -8,18 +8,30 @@ namespace Pharmacy.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _context;
-        public UnitOfWork(DataContext context)
+        private readonly PharmacyDbContext _context;
+ 
+        public UnitOfWork(PharmacyDbContext context, 
+            IRepository<Medicine> medicineRepository,
+            IMedicineRepository specificMedicineRepository,
+            IRepository<Unit> unitRepository,
+            IUnitRepository specficUnitRepository,
+            IRepository<Supplier> supplierRepository, 
+            IRepository<ProductImportDetails> productImportDetailsRepository,
+            IRepository<Supplier_Medicine_Pharmacy> supplier_Medicine_PharmacyRepository,
+            IRepository<Pharmacy.Domain.Entities.Pharmacy> pharmacyRepository,
+            IPharmacyRepository specficPharmacyRepository
+            )
         {
             _context = context;
-            MedicineRepository = new Repository<Medicine>(_context);
-            SpecificMedicineRepository = new MedicineRepoistory(_context);
-            UnitRepository = new Repository<Unit>(_context);
-            SupplierRepository = new Repository<Supplier>(_context);
-            SpecficUnitRepository = new UnitReposiotry(_context);
-            ProductImportDetailsRepository = new Repository<ProductImportDetails>(_context);
-            Supplier_Medicine_PharmacyRepository = new Repository<Supplier_Medicine_Pharmacy>(_context);
-            PharmacyRepository = new Repository<Pharmacy.Domain.Entities.Pharmacy>(_context);
+            MedicineRepository = medicineRepository;
+            SpecificMedicineRepository = specificMedicineRepository;
+            UnitRepository = unitRepository;
+            SpecficUnitRepository = specficUnitRepository;
+            SupplierRepository = supplierRepository;
+            ProductImportDetailsRepository = productImportDetailsRepository;
+            Supplier_Medicine_PharmacyRepository = supplier_Medicine_PharmacyRepository;
+            PharmacyRepository = pharmacyRepository;
+            SpecficPharmacyRepository = specficPharmacyRepository;
         }
 
         public IRepository<Medicine> MedicineRepository { get; }
@@ -34,6 +46,7 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         public IRepository<Supplier_Medicine_Pharmacy> Supplier_Medicine_PharmacyRepository { get; }
 
         public IRepository<Domain.Entities.Pharmacy> PharmacyRepository { get; }
+        public IPharmacyRepository SpecficPharmacyRepository { get; }
 
         public async Task<int> SaveChangesAsync()
         {

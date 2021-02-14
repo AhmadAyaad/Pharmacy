@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20210103221658_MakeMedicinePrice-ExpDate-Nullable")]
     partial class MakeMedicinePriceExpDateNullable
     {

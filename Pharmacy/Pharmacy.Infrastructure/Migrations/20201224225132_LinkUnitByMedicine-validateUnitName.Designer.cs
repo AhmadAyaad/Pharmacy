@@ -9,7 +9,7 @@ using Pharmacy.Infrastructure.Data;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(PharmacyDbContext))]
     [Migration("20201224225132_LinkUnitByMedicine-validateUnitName")]
     partial class LinkUnitByMedicinevalidateUnitName
     {

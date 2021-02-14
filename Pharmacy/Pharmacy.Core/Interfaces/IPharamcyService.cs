@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Interfaces
@@ -8,5 +7,6 @@ namespace Pharmacy.Core.Interfaces
     public interface IPharamcyService
     {
         IEnumerable<Pharmacy.Domain.Entities.Pharmacy> GetParentPharamices();
+        Task<IQueryable<Pharmacy.Infrastructure.Views.PharmacyProducts>> GetPharmacy(string pharmacyName);
     }
 }

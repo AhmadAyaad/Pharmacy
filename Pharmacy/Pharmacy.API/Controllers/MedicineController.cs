@@ -28,7 +28,7 @@ namespace Pharmacy.API.Controllers
         private readonly ILogger<MedicineController> _logger;
         List<Medicine> _medicinesList;
 
-        public MedicineController(IMedicineService medicineService, 
+        public MedicineController(IMedicineService medicineService,
                                   IUnitService unitService,
                                   IHostingEnvironment environment,
                                   UploadFileUtil uploadFileUtil,
@@ -73,32 +73,33 @@ namespace Pharmacy.API.Controllers
             _uploadFileUtil.CreateFile(_environment, form);
             _list = await _uploadFileUtil.ReadFileAsync(form, _list);
             _medicinesList = _medicineMapper.MapToMedicines(_list.Skip(1).ToList());
-
-            //try
-            //{
-            //    var isCreated = await _medicineService.AddRangOfMedicines(_medicinesList);
-            //    if (isCreated)
-            //        return Ok();
-            //}
-            //catch (Exception e)
-            //{
-            //    Trace.WriteLine(e.Message);
-            //}
-            return Ok(_medicinesList);
-
-            //return BadRequest("Error in file formatting");
+            if (_medicinesList != null)
+                return Ok(_medicinesList);
+            return BadRequest();
         }
         [HttpPost("addToDb")]
         public async Task<IActionResult> AddMedicinesToDb(List<Medicine> medicines)
         {
-            await _medicineService.AddRangOfMedicines(medicines);
-            return Ok(medicines);
+            if (medicines != null)
+            {
+                await _medicineService.AddRangOfMedicines(medicines);
+                return Ok(medicines);
+            }
+            return BadRequest();
         }
         [HttpGet]
         public async Task<IActionResult> GetMedicines()
         {
             _logger.LogInformation("Info logging");
             var medicines = await _medicineService.GetMedicines();
+            if (medicines != null)
+                return Ok(medicines);
+            return NotFound();
+        }
+        [HttpGet("units")]
+        public async Task<IActionResult> GetMedicinesWithUnitNames()
+        {
+            var medicines = await _medicineService.GetMedicinesWithUnitNames();
             if (medicines != null)
                 return Ok(medicines);
             return NotFound();

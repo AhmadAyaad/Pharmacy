@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Pharmacy.Core.Configuration
 {
-    public class Config
+    public class Ioc
     {
         public static void ConfigureServices(IServiceCollection services)
         {
@@ -17,6 +17,7 @@ namespace Pharmacy.Core.Configuration
             services.AddScoped<IProductImportDetailsService, ProductImportDetailsService>();
             services.AddScoped<ISupplierMedicinePharamcyService, SupplierMedicinePharamcyService>();
             services.AddScoped<IPharamcyService, PharmacyService>();
+            services.AddScoped<IProductSupplierService, ProductSupplierService>();
 
         }
     }

@@ -5,17 +5,14 @@ using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Data;
 using Pharmacy.Infrastructure.Repostiory;
 using Pharmacy.Infrastructure.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pharmacy.Infrastructure.Configuration
 {
-    public class Config
+    public class Ioc
     {
         public static void ConfigureServices(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<PharmacyDbContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
             services.AddScoped<IMedicineRepository, MedicineRepoistory>();
@@ -30,6 +27,8 @@ namespace Pharmacy.Infrastructure.Configuration
 
             services.AddScoped<IRepository<Pharmacy.Domain.Entities.Pharmacy>,
                                 Repository<Pharmacy.Domain.Entities.Pharmacy>>();
+
+            services.AddScoped<IPharmacyRepository, PharmacyRepository>();
         }
     }
 }

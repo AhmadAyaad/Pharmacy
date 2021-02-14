@@ -1,9 +1,6 @@
 ﻿using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Repostiory;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Infrastructure.UnitOfWork
@@ -18,6 +15,7 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
         IRepository<Supplier_Medicine_Pharmacy> Supplier_Medicine_PharmacyRepository { get; }
         IRepository<Pharmacy.Domain.Entities.Pharmacy> PharmacyRepository { get; }
+        IPharmacyRepository SpecficPharmacyRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }

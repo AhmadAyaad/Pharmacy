@@ -28,8 +28,8 @@ namespace Pharmacy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Config.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
-            Pharmacy.Core.Configuration.Config.ConfigureServices(services);
+            Ioc.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
+            Pharmacy.Core.Configuration.Ioc.ConfigureServices(services);
             
             services.AddScoped<UploadFileUtil>();
             services.AddScoped<MedicineMapper>();
