@@ -7,6 +7,5 @@ namespace Pharmacy.Core.Interfaces
     public interface IPharamcyService
     {
         IEnumerable<Pharmacy.Domain.Entities.Pharmacy> GetParentPharamices();
-        Task<IQueryable<Pharmacy.Infrastructure.Views.PharmacyProducts>> GetPharmacy(string pharmacyName);
     }
 }

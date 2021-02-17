@@ -10,7 +10,6 @@ namespace Pharmacy.Domain.Entities
         public string Address { get; set; }
         public int? Phone { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
-        public ICollection<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
-                                                      = new HashSet<Supplier_Medicine_Pharmacy>();
+
     }
 }

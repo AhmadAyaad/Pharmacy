@@ -1,4 +1,5 @@
-﻿using Pharmacy.Core.Interfaces;
+﻿using Pharmacy.Core.Dtos;
+using Pharmacy.Core.Interfaces;
 using Pharmacy.Infrastructure.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,16 +24,6 @@ namespace Pharmacy.Core.Services
             return new List<Pharmacy.Domain.Entities.Pharmacy>();
 
         }
-
-        public async Task<IQueryable<Infrastructure.Views.PharmacyProducts>> GetPharmacy(string pharmacyName)
-        {
-            var pharamcyProdcuts = await _unitOfWork.SpecficPharmacyRepository
-                                        .GetPharmacy(pharmacyName: pharmacyName);
-            return pharamcyProdcuts;
-        }
-
-
-
 
     }
 }

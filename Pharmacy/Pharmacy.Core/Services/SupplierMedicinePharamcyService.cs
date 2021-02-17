@@ -10,9 +10,9 @@ namespace Pharmacy.Core.Services
 {
     public class SupplierMedicinePharamcyService : ISupplierMedicinePharamcyService
     {
-        readonly IRepository<Supplier_Medicine_Pharmacy> _supplierMedicinePharmacyRepository;
+        readonly IRepository<SupplierProductsTransfer> _supplierMedicinePharmacyRepository;
 
-        public SupplierMedicinePharamcyService(IRepository<Supplier_Medicine_Pharmacy>
+        public SupplierMedicinePharamcyService(IRepository<SupplierProductsTransfer>
                                                supplierMedicinePharmacyRepository)
         {
             _supplierMedicinePharmacyRepository = supplierMedicinePharmacyRepository;
@@ -23,11 +23,10 @@ namespace Pharmacy.Core.Services
             {
                 if (createProductFromSupplierDto != null)
                 {
-                    var supplier_medicine_phamracy = new Supplier_Medicine_Pharmacy()
+                    var supplier_medicine_phamracy = new SupplierProductsTransfer()
                     {
                         MedicineId = createProductFromSupplierDto.ProductId,
                         PharmacyId = createProductFromSupplierDto.PharmacyId,
-                        SupplierId = createProductFromSupplierDto.SupplierId,
                         Price = createProductFromSupplierDto.Price,
                         Quantity = createProductFromSupplierDto.Quantity
                     };

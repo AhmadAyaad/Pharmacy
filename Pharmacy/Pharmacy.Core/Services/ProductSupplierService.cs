@@ -64,16 +64,15 @@ namespace Pharmacy.Core.Services
 
         private async Task<bool> CreateNewProductTransferOperation(CreateProductFromSupplierDto createProductFromSupplierDto)
         {
-            var supplier_medicine_phamracy = new Supplier_Medicine_Pharmacy()
+            var supplierProductsTransfer = new SupplierProductsTransfer()
             {
                 MedicineId = createProductFromSupplierDto.ProductId,
                 PharmacyId = createProductFromSupplierDto.PharmacyId,
-                SupplierId = createProductFromSupplierDto.SupplierId,
                 Price = createProductFromSupplierDto.Price,
                 Quantity = createProductFromSupplierDto.Quantity
             };
-            var isCreated = await _unitOfWork.Supplier_Medicine_PharmacyRepository
-                                  .Create(supplier_medicine_phamracy);
+            var isCreated = await _unitOfWork.SupplierProductsTransferRepository
+                                  .Create(supplierProductsTransfer);
             return isCreated ? true : false;
         }
     }

@@ -25,14 +25,6 @@ namespace Pharmacy.API.Controllers
             return Task.Run<IActionResult>(() => NotFound());
         }
 
-        [HttpGet("api/pharmacyProducts")]
-        public async Task<IActionResult> GetPharmacyProducts([FromQuery(Name ="name")]string pharmacyName)
-        {
-            var pharmacyProducts = await _pharamcyService.GetPharmacy(pharmacyName:pharmacyName);
-            if (pharmacyProducts != null)
-                return Ok(pharmacyProducts);
-            return NotFound();
-        }
-
+   
     }
 }

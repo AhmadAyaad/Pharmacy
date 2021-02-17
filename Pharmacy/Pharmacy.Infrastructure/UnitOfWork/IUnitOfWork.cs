@@ -13,9 +13,8 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         IUnitRepository SpecficUnitRepository { get; }
         IRepository<Supplier> SupplierRepository { get; }
         IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
-        IRepository<Supplier_Medicine_Pharmacy> Supplier_Medicine_PharmacyRepository { get; }
+        IRepository<SupplierProductsTransfer> SupplierProductsTransferRepository { get; }
         IRepository<Pharmacy.Domain.Entities.Pharmacy> PharmacyRepository { get; }
-        IPharmacyRepository SpecficPharmacyRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }

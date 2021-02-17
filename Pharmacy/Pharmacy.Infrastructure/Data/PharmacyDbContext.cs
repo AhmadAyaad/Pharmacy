@@ -18,11 +18,6 @@ namespace Pharmacy.Infrastructure.Data
 
             modelBuilder.Entity<Medicine>().HasIndex(m => m.MedicineName);
 
-
-
-            modelBuilder.Entity<Medicine>().HasMany(s => s.Supplier_Medicine_Pharmacies)
-                                           .WithOne(smp => smp.Medicine);
-
             modelBuilder.Entity<Medicine>()
                         .HasMany(m => m.PatientTransactions)
                         .WithOne(pt => pt.Medicine);
@@ -50,12 +45,7 @@ namespace Pharmacy.Infrastructure.Data
                         .WithOne(e => e.Unit);
             #endregion
 
-            //#region Medicine Unit Config
-            //modelBuilder.Entity<Medicine>()
-            //            .HasOne(med => med.Unit)
-            //            .WithOne(unit => unit.Medicine)
-            //            .HasForeignKey<Unit>(b => b.MedicineId);
-            //#endregion
+
 
             #region Supplier Config
 
@@ -63,8 +53,7 @@ namespace Pharmacy.Infrastructure.Data
                                             .IsRequired()
                                             .HasMaxLength(255);
 
-            modelBuilder.Entity<Supplier>().HasMany(s => s.Supplier_Medicine_Pharmacies)
-                                           .WithOne(smp => smp.Supplier);
+         
             #endregion
 
 
@@ -79,11 +68,6 @@ namespace Pharmacy.Infrastructure.Data
             modelBuilder.Entity<Pharmacy.Domain.Entities.Pharmacy>()
                         .Property(ph => ph.PharmacyName)
                         .IsRequired().HasMaxLength(255);
-
-
-            modelBuilder.Entity<Pharmacy.Domain.Entities.Pharmacy>()
-                        .HasMany(ph => ph.Supplier_Medicine_Pharmacies)
-                        .WithOne(smp => smp.Pharmacy);
 
 
             modelBuilder.Entity<Pharmacy.Domain.Entities.Pharmacy>()
@@ -102,13 +86,9 @@ namespace Pharmacy.Infrastructure.Data
 
             #endregion
 
-
-            #region Supplier_Medicine_Pharmacy Config
-
-            modelBuilder.Entity<Supplier_Medicine_Pharmacy>().HasKey(smp => smp.Supplier_Medicine_Pharmacy_Id);
-
-            #endregion
-
+            modelBuilder.Entity<Pharmacy.Domain.Entities.SupplierProductsTransfer>()
+                        .HasKey(spt => spt.SupplierProductsTransferId);
+          
 
             #region Patient Config 
 
@@ -124,26 +104,16 @@ namespace Pharmacy.Infrastructure.Data
 
             #endregion
 
-
-
-            modelBuilder.Entity<Pharmacy.Infrastructure.Views.PharmacyProducts>(eb =>
-                          {
-                              eb.HasNoKey();
-                              eb.ToView("View_pharmacyProducts");
-                          }
-                          );
-
         }
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<ExpireDate> ExpireDates { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Pharmacy.Domain.Entities.Pharmacy> Pharmacies { get; set; }
-        public virtual DbSet<Supplier_Medicine_Pharmacy> Supplier_Medicine_Pharmacies { get; set; }
+        public virtual DbSet<SupplierProductsTransfer> Supplier_Medicine_Pharmacies { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<ProductImportDetails> ProductImportDetails { get; set; }
-        public virtual DbSet<Pharmacy.Infrastructure.Views.PharmacyProducts> PharmacyProducts { get; set; }
 
 
     }

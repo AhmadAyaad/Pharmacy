@@ -22,13 +22,12 @@ namespace Pharmacy.Infrastructure.Configuration
             services.AddScoped<IRepository<ProductImportDetails>,
                                 Repository<ProductImportDetails>>();
 
-            services.AddScoped<IRepository<Supplier_Medicine_Pharmacy>,
-                                Repository<Supplier_Medicine_Pharmacy>>();
+            services.AddScoped<IRepository<SupplierProductsTransfer>,
+                                Repository<SupplierProductsTransfer>>();
 
             services.AddScoped<IRepository<Pharmacy.Domain.Entities.Pharmacy>,
                                 Repository<Pharmacy.Domain.Entities.Pharmacy>>();
 
-            services.AddScoped<IPharmacyRepository, PharmacyRepository>();
         }
     }
 }
