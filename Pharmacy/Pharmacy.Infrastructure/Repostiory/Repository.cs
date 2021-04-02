@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Data;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Pharmacy.Domain.Entities
 {
@@ -10,6 +9,5 @@ namespace Pharmacy.Domain.Entities
         public string Address { get; set; }
         public int? Phone { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
-
     }
 }

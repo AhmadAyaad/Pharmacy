@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pharmacy.Core.Dtos
+﻿namespace Pharmacy.Core.Dtos
 {
     public class MedicneFileUploadDto
     {

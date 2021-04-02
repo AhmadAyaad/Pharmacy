@@ -2,6 +2,7 @@
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Data;
 using Pharmacy.Infrastructure.Repostiory;
+
 using System.Threading.Tasks;
 
 namespace Pharmacy.Infrastructure.UnitOfWork
@@ -18,7 +19,12 @@ namespace Pharmacy.Infrastructure.UnitOfWork
             IRepository<Supplier> supplierRepository,
             IRepository<ProductImportDetails> productImportDetailsRepository,
             IRepository<SupplierProductsTransfer> supplierProductsTransferRepository,
-            IRepository<Pharmacy.Domain.Entities.Pharmacy> pharmacyRepository
+            IRepository<Pharmacy.Domain.Entities.Pharmacy> pharmacyRepository,
+            IPharmacyRepository specficpharmacyRepository,
+            IRepository<ProductsQuantity> productsQuantityRepository,
+            ISupplierProductsTransferReposiotry supplierProductsTransferReposiotry,
+            IRepository<PharmacySupplyDetails> pharmacySupplyDetailsRepo,
+            IRepository<PharmacyProductsTransfer> pharamcyProductsTransferRepo
             )
         {
             _context = context;
@@ -26,10 +32,16 @@ namespace Pharmacy.Infrastructure.UnitOfWork
             SpecificMedicineRepository = specificMedicineRepository;
             UnitRepository = unitRepository;
             SpecficUnitRepository = specficUnitRepository;
+            SpecficSupplierProductsTransferReposiotry = supplierProductsTransferReposiotry;
             SupplierRepository = supplierRepository;
             ProductImportDetailsRepository = productImportDetailsRepository;
             SupplierProductsTransferRepository = supplierProductsTransferRepository;
             PharmacyRepository = pharmacyRepository;
+            SpecficPharmacyRepository = specficpharmacyRepository;
+            ProductsQuantityRepository = productsQuantityRepository;
+            PharmacySupplyDetailsRepo = pharmacySupplyDetailsRepo;
+            PharamcyProductsTransferRepo = pharamcyProductsTransferRepo;
+
         }
 
         public IRepository<Medicine> MedicineRepository { get; }
@@ -44,6 +56,14 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         public IRepository<SupplierProductsTransfer> SupplierProductsTransferRepository { get; }
 
         public IRepository<Domain.Entities.Pharmacy> PharmacyRepository { get; }
+        public IPharmacyRepository SpecficPharmacyRepository { get; }
+
+        public ISupplierProductsTransferReposiotry SpecficSupplierProductsTransferReposiotry { get; }
+        public IRepository<ProductsQuantity> ProductsQuantityRepository { get; }
+
+        public IRepository<PharmacySupplyDetails> PharmacySupplyDetailsRepo { get; }
+
+        public IRepository<PharmacyProductsTransfer> PharamcyProductsTransferRepo { get; }
 
         public async Task<int> SaveChangesAsync()
         {

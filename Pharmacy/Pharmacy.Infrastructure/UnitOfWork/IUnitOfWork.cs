@@ -1,6 +1,7 @@
 ﻿using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Interfaces;
 using Pharmacy.Infrastructure.Repostiory;
+
 using System.Threading.Tasks;
 
 namespace Pharmacy.Infrastructure.UnitOfWork
@@ -14,7 +15,12 @@ namespace Pharmacy.Infrastructure.UnitOfWork
         IRepository<Supplier> SupplierRepository { get; }
         IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
         IRepository<SupplierProductsTransfer> SupplierProductsTransferRepository { get; }
+        ISupplierProductsTransferReposiotry SpecficSupplierProductsTransferReposiotry { get; }
         IRepository<Pharmacy.Domain.Entities.Pharmacy> PharmacyRepository { get; }
+        IPharmacyRepository SpecficPharmacyRepository { get; }
+        IRepository<ProductsQuantity> ProductsQuantityRepository { get; }
+        IRepository<PharmacySupplyDetails> PharmacySupplyDetailsRepo { get; }
+        IRepository<PharmacyProductsTransfer> PharamcyProductsTransferRepo { get; }
         Task<int> SaveChangesAsync();
     }
 }

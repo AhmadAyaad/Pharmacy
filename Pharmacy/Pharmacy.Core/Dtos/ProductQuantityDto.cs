@@ -1,7 +1,4 @@
 ﻿using Pharmacy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pharmacy.Core.Dtos
 {

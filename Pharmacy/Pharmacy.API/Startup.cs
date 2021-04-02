@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pharmacy.Infrastructure.Configuration;
 using Microsoft.OpenApi.Models;
-using System;
+
 using Pharmacy.API.Util;
-using Pharmacy.Core.Dtos;
-using Pharmacy.Domain.Entities;
 using Pharmacy.Core.Mapper;
+using Pharmacy.Infrastructure.Configuration;
+
+using System;
 
 namespace Pharmacy.API
 {
@@ -30,10 +30,9 @@ namespace Pharmacy.API
         {
             Ioc.ConfigureServices(services, Configuration.GetConnectionString("pharmacyConnString"));
             Pharmacy.Core.Configuration.Ioc.ConfigureServices(services);
-            
+
             services.AddScoped<UploadFileUtil>();
             services.AddScoped<MedicineMapper>();
-
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession(options =>
             {

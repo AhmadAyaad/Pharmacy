@@ -9,10 +9,15 @@ namespace Pharmacy.Domain.Interfaces
     public interface IRepository<T> where T : class
     {
         Task<bool> Create(T t);
+
         Task<T> GetById(int id);
+
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+
         IQueryable<T> GetAll();
+
         Task Update(T t);
+
         Task<bool> Delete(int id);
     }
 }

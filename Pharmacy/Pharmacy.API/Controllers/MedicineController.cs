@@ -1,17 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 using Pharmacy.API.Util;
 using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Core.Mapper;
+using Pharmacy.Core.Pagniation;
 using Pharmacy.Domain.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace Pharmacy.API.Controllers
 {
@@ -55,7 +58,7 @@ namespace Pharmacy.API.Controllers
                 {
                     var isCreated = await _medicineService.CreateMedicine(createMedicineDto);
                     if (isCreated)
-                        return Ok(createMedicineDto);
+                        return Ok(new Response<CreateMedicineDto>(createMedicineDto) { IsSucceeded = true, Error = null });
                 }
                 catch (Exception e)
                 {
@@ -63,7 +66,7 @@ namespace Pharmacy.API.Controllers
                 }
 
             }
-            return BadRequest();
+            return BadRequest(new Response<CreateMedicineDto>() { Data = null, IsSucceeded = false, Error = "Object cannot be null" });
         }
 
 
@@ -74,24 +77,38 @@ namespace Pharmacy.API.Controllers
             _list = await _uploadFileUtil.ReadFileAsync(form, _list);
             _medicinesList = _medicineMapper.MapToMedicines(_list.Skip(1).ToList());
             if (_medicinesList != null)
-                return Ok(_medicinesList);
-            return BadRequest();
+                return Ok(new Response<List<Medicine>> { Data = _medicinesList, IsSucceeded = true, Error = null });
+            return BadRequest(new Response<List<Medicine>>
+            {
+                Data = null,
+                IsSucceeded = false,
+                Message = "check file format or make sure it contains data"
+            });
         }
         [HttpPost("addToDb")]
         public async Task<IActionResult> AddMedicinesToDb(List<Medicine> medicines)
         {
-            if (medicines != null)
+            try
             {
-                await _medicineService.AddRangOfMedicines(medicines);
-                return Ok(medicines);
+                if (medicines != null)
+                {
+                    await _medicineService.AddRangOfMedicines(medicines);
+                    return Ok(new Response<List<Medicine>> { Data = medicines, IsSucceeded = true, Error = null });
+                }
+                return BadRequest(new Response<List<Medicine>> { Data = null, IsSucceeded = false, Error = "Medicines List cannot be null" });
             }
-            return BadRequest();
+            catch (Exception e)
+            {
+                return BadRequest(new Response<List<Medicine>> { Data = null, IsSucceeded = false, Error = e.Message });
+
+            }
         }
         [HttpGet]
-        public async Task<IActionResult> GetMedicines()
+        public async Task<IActionResult> GetMedicines([FromQuery] PaginationFilter filter)
         {
-            _logger.LogInformation("Info logging");
-            var medicines = await _medicineService.GetMedicines();
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+
+            var medicines = await _medicineService.GetMedicines(validFilter);
             if (medicines != null)
                 return Ok(medicines);
             return NotFound();
@@ -101,8 +118,8 @@ namespace Pharmacy.API.Controllers
         {
             var medicines = await _medicineService.GetMedicinesWithUnitNames();
             if (medicines != null)
-                return Ok(medicines);
-            return NotFound();
+                return Ok(new Response<List<Medicine>> { Data = medicines, Error = null, IsSucceeded = true });
+            return NotFound(new Response<List<Medicine>> { Data = null, IsSucceeded = false, Error = "Not Found" });
         }
 
         [HttpGet("{id}")]
@@ -110,8 +127,8 @@ namespace Pharmacy.API.Controllers
         {
             var medicine = await _medicineService.GetMedicine(id);
             if (medicine != null)
-                return Ok(medicine);
-            return NotFound();
+                return Ok(new Response<Medicine> { Data = medicine, Error = null, IsSucceeded = true });
+            return NotFound(new Response<Medicine> { Data = null, IsSucceeded = false, Error = "Not Found" });
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Pharmacy.Domain.Enums;
+
 using System;
 using System.Collections.Generic;
 
@@ -14,9 +15,9 @@ namespace Pharmacy.Domain.Entities
         public ICollection<MedicineExpireDate> MedicineExpireDates { get; set; } = new HashSet<MedicineExpireDate>();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int? UnitId { get; set; }
-        public virtual Unit Unit { get; set; } = new Unit();
+        public Unit Unit { get; set; }
         public ProductType ProductType { get; set; }
-     
+
         public ICollection<PatientTransaction> PatientTransactions { get; set; }
                                                       = new HashSet<PatientTransaction>();
     }

@@ -2,7 +2,7 @@
 {
     public enum PharmacyTypeEnum
     {
-        Large=0,
-        small=1
+        Large = 0,
+        small = 1
     }
 }

@@ -2,7 +2,7 @@
 {
     public enum ProductType
     {
-        Medicine=0,
-        Equipment=1
+        Medicine = 0,
+        Equipment = 1
     }
 }

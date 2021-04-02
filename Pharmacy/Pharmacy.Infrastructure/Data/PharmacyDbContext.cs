@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Pharmacy.Domain.Entities;
 
 namespace Pharmacy.Infrastructure.Data
@@ -7,11 +8,12 @@ namespace Pharmacy.Infrastructure.Data
     {
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options)
         {
-
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Medicine config
+
             modelBuilder.Entity<Medicine>().Property(m => m.MedicineName)
                                            .IsRequired()
                                            .HasMaxLength(255);
@@ -22,7 +24,7 @@ namespace Pharmacy.Infrastructure.Data
                         .HasMany(m => m.PatientTransactions)
                         .WithOne(pt => pt.Medicine);
 
-            #endregion
+            #endregion Medicine config
 
             #region ExpireDate Medicine Config
 
@@ -36,16 +38,18 @@ namespace Pharmacy.Infrastructure.Data
                         .HasOne(med => med.ExpireDate)
                         .WithMany(c => c.MedicineExpireDates)
                         .HasForeignKey(med => med.ExpireDateId);
-            #endregion
+
+            #endregion ExpireDate Medicine Config
+
             #region Unit Config
+
             modelBuilder.Entity<Unit>().Property(u => u.UnitName).IsRequired();
 
             modelBuilder.Entity<Unit>()
                         .HasMany(c => c.Medicines)
                         .WithOne(e => e.Unit);
-            #endregion
 
-
+            #endregion Unit Config
 
             #region Supplier Config
 
@@ -53,9 +57,7 @@ namespace Pharmacy.Infrastructure.Data
                                             .IsRequired()
                                             .HasMaxLength(255);
 
-         
-            #endregion
-
+            #endregion Supplier Config
 
             #region Pharmacy Config
 
@@ -69,52 +71,43 @@ namespace Pharmacy.Infrastructure.Data
                         .Property(ph => ph.PharmacyName)
                         .IsRequired().HasMaxLength(255);
 
-
             modelBuilder.Entity<Pharmacy.Domain.Entities.Pharmacy>()
                         .HasMany(ph => ph.PatientTransactions)
                         .WithOne(pt => pt.Pharmacy);
 
+            #endregion Pharmacy Config
 
-            #endregion
+            #region Pharamcy Type Config
 
-
-            #region Pharamcy Type Config 
             modelBuilder.Entity<PharmacyType>()
                         .HasMany(pt => pt.Pharmacies)
                         .WithOne(p => p.PharmacyType)
                         .OnDelete(DeleteBehavior.Cascade);
 
-            #endregion
+            #endregion Pharamcy Type Config
 
             modelBuilder.Entity<Pharmacy.Domain.Entities.SupplierProductsTransfer>()
                         .HasKey(spt => spt.SupplierProductsTransferId);
-          
 
-            #region Patient Config 
+            #region Patient Config
 
             modelBuilder.Entity<Patient>()
                         .HasMany(ph => ph.PatientTransactions)
                         .WithOne(pt => pt.Patient);
 
-            #endregion
-
-
-
-            #region PorudtcImportDetails Config
-
-            #endregion
-
+            #endregion Patient Config
         }
+
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<ExpireDate> ExpireDates { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Pharmacy.Domain.Entities.Pharmacy> Pharmacies { get; set; }
-        public virtual DbSet<SupplierProductsTransfer> Supplier_Medicine_Pharmacies { get; set; }
+        public virtual DbSet<SupplierProductsTransfer> SupplierProductsTransfers { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<ProductImportDetails> ProductImportDetails { get; set; }
-
-
+        public virtual DbSet<ProductsQuantity> ProductsQuantities { get; set; }
+        public virtual DbSet<PharmacySupplyDetails> PharmacySupplyDetails { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Pharmacy.Core.Dtos;
 using Pharmacy.Core.Interfaces;
 using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Enums;
 using Pharmacy.Infrastructure.UnitOfWork;
+
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -23,12 +23,10 @@ namespace Pharmacy.Core.Services
             {
                 if (createProductFromSupplierDto != null)
                 {
-                    Enum.TryParse(createProductFromSupplierDto.ProductType, out ProductType productType);
                     var productImportDetails = new ProductImportDetails()
                     {
 
                         ImportOrderNumber = createProductFromSupplierDto.ImportOrderNumber,
-                        ProductType = productType,
                         PurchaseFee = createProductFromSupplierDto.PurchaseFee,
                         SupplyOrderNumber = createProductFromSupplierDto.SupplyOrderNumber,
                         ApprovalNumber = createProductFromSupplierDto.ApprovalNumber
