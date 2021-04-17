@@ -15,7 +15,7 @@ namespace Pharmacy.Infrastructure.Repostiory
         {
         }
 
-        public Task<IQueryable<Test>> GetPharmacyProduct(int productId, int pharmacyId)
+        public Task<IQueryable<ProductDetailQuantityView>> GetPharmacyProduct(int productId, int pharmacyId)
         {
             var product = (from pq in _context.ProductsQuantities
                            join m in _context.Medicines
@@ -25,7 +25,7 @@ namespace Pharmacy.Infrastructure.Repostiory
                            new { MedicineId = m.MedicineId, PharamacyId = pharmacyId }
                            join u in _context.Units
                            on m.UnitId equals u.UnitId
-                           select new Test { ProductsQuantity = pq, Medicine = m, unit = u }
+                           select new ProductDetailQuantityView { ProductsQuantity = pq, Medicine = m, unit = u }
                            ).Where(p => p.Medicine.MedicineId == productId);
 
             return Task.FromResult(product);

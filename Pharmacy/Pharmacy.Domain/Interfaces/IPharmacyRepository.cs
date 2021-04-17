@@ -9,6 +9,6 @@ namespace Pharmacy.Domain.Interfaces
     {
         Task<IQueryable<ProductQuantityView>> GetPharmacyProducts(int pharmacyId);
 
-        Task<IQueryable<Test>> GetPharmacyProduct(int productId, int pharmacyId);
+        Task<IQueryable<ProductDetailQuantityView>> GetPharmacyProduct(int productId, int pharmacyId);
     }
 }

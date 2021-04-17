@@ -74,7 +74,7 @@ namespace Pharmacy.API.Controllers
             }
         }
 
-        [Route("api/pharmacy/Products/{productId}/{pharmacyId}")]
+        [Route("api/pharmacy/products/{productId}/{pharmacyId}")]
         [HttpGet]
         public async Task<IActionResult> GetPharmacyProduct(int productId, int pharmacyId)
         {

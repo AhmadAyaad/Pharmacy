@@ -32,7 +32,7 @@ namespace Pharmacy.Core.Services
             return pharmacyFromDb != null ? pharmacyFromDb : null;
         }
 
-        public async Task<IQueryable<Test>> GetPharmacyProduct(int productId, int pharmacyId)
+        public async Task<IQueryable<ProductDetailQuantityView>> GetPharmacyProduct(int productId, int pharmacyId)
         {
             return await _unitOfWork.SpecficPharmacyRepository.GetPharmacyProduct(productId, pharmacyId);
         }

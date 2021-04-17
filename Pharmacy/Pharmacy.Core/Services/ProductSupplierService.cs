@@ -14,10 +14,12 @@ namespace Pharmacy.Core.Services
     public class ProductSupplierService : IProductSupplierService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ProductSupplierService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<bool> RecieveProductFromSupplier(CreateProductFromSupplierDto createProductFromSupplierDto)
         {
             try
@@ -42,7 +44,7 @@ namespace Pharmacy.Core.Services
                             var productQuantitiesFromDb = _unitOfWork.ProductsQuantityRepository.GetAll();
                             //foreach (var item in productQuantitiesFromDb)
                             //{
-                            //    //exisiting products in the db 
+                            //    //exisiting products in the db
                             //    exisitingProducts =
                             //         mappedProductsQuantiesList
                             //         .Where(pr => pr.ExpireDate == item.ExpireDate && pr.MedicineId == item.MedicineId)
@@ -56,8 +58,6 @@ namespace Pharmacy.Core.Services
                             productsWithNewExprieDateList = GetNonExisitingProducts(mappedProductsQuantiesList,
                                                                                    existingProductsWithSameExprieDateList);
 
-                            // lw el expiredate mwgod abl keda
-                            //if (existingProductsWithSameExprieDateList.Count > 0)
                             //{
                             //    foreach (var item in existingProductsWithSameExprieDateList)
                             //    {
@@ -70,7 +70,6 @@ namespace Pharmacy.Core.Services
                             //        await _unitOfWork.ProductsQuantityRepository.Update(exisitingProductQuanity);
                             //    }
                             //}
-
 
                             await UpdateExisitngProduct(existingProductsWithSameExprieDateList);
 
@@ -105,6 +104,7 @@ namespace Pharmacy.Core.Services
                                                         .ToList();
             return productsWithNewExprieDateList;
         }
+
         private async Task AddProductsWithNewExpireationDate(List<ProductsQuantity> productsWithNewExprieDateList)
         {
             if (productsWithNewExprieDateList.Count > 0)
@@ -114,9 +114,7 @@ namespace Pharmacy.Core.Services
                     await _unitOfWork.ProductsQuantityRepository.Create(productQuantity);
                 }
             }
-
         }
-
 
         private async Task UpdateExisitngProduct(List<ProductsQuantity> existingProductsWithSameExprieDateList)
         {
@@ -143,21 +141,20 @@ namespace Pharmacy.Core.Services
 
             foreach (var item in productQuantitiesFromDb)
             {
-                //exisiting products in the db 
+                //exisiting products in the db
                 exisitingProducts =
                      mappedProductsQuantiesList
                      .Where(pr => pr.ExpireDate == item.ExpireDate && pr.MedicineId == item.MedicineId)
                      .ToList();
                 existingProductsWithSameExprieDateList.AddRange(exisitingProducts);
-
             }
             return existingProductsWithSameExprieDateList;
         }
+
         private async Task<ProductImportDetails> CreateProductImportDetails(CreateProductFromSupplierDto createProductFromSupplierDto)
         {
             try
             {
-
                 var productImportDetails = new ProductImportDetails()
                 {
                     ApprovalNumber = createProductFromSupplierDto.ApprovalNumber,
@@ -173,7 +170,6 @@ namespace Pharmacy.Core.Services
             {
                 throw new Exception(e.Message);
             }
-
         }
 
         private async Task<bool> CreateNewProductTransferOperation(CreateProductFromSupplierDto createProductFromSupplierDto,
@@ -188,6 +184,7 @@ namespace Pharmacy.Core.Services
             }
             return false;
         }
+
         private List<SupplierProductsTransfer> MapToSupplierProductsTransfer(CreateProductFromSupplierDto createProductFromSupplierDto,
                         ProductImportDetails productImportDetails)
         {

@@ -12,7 +12,7 @@ namespace Pharmacy.Core.Interfaces
 
         Task<IQueryable<ProductQuantityView>> GetPharmacyProducts(int pharmacyId);
 
-        Task<IQueryable<Test>> GetPharmacyProduct(int productId, int pharmacyId);
+        Task<IQueryable<ProductDetailQuantityView>> GetPharmacyProduct(int productId, int pharmacyId);
 
         Task<Domain.Entities.Pharmacy> GetPharmacyById(int id);
     }
