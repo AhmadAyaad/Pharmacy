@@ -25,7 +25,7 @@ namespace Pharmacy.Infrastructure.Repostiory
                            new { MedicineId = m.MedicineId, PharamacyId = pharmacyId }
                            join u in _context.Units
                            on m.UnitId equals u.UnitId
-                           select new ProductDetailQuantityView { ProductsQuantity = pq, Medicine = m, unit = u }
+                           select new ProductDetailQuantityView { ProductsQuantity = pq, Medicine = m }
                            ).Where(p => p.Medicine.MedicineId == productId);
 
             return Task.FromResult(product);
