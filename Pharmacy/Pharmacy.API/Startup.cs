@@ -34,13 +34,6 @@ namespace Pharmacy.API
             services.AddScoped<UploadFileUtil>();
             services.AddScoped<MedicineMapper>();
             services.AddMvc().AddSessionStateTempDataProvider();
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(10000);//We set Time here 
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-            services.AddDistributedMemoryCache();
 
             services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling =
                        Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -49,13 +42,12 @@ namespace Pharmacy.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Zomato API",
+                    Title = "Pharamcy API",
                     Version = "v1",
-                    Description = "Description for the API goes here.",
                     Contact = new OpenApiContact
                     {
-                        Name = "Ankush Jain",
-                        Email = string.Empty,
+                        Name = "Ahmad Ayad",
+                        Email = "ahmedayad45@gmail.com",
                         Url = new Uri("http://localhost:53147"),
                     },
                 });
@@ -77,13 +69,12 @@ namespace Pharmacy.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zomato API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pharmacy API V1");
 
                 // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
-            app.UseSession();
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
