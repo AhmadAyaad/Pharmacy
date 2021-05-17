@@ -153,3 +153,14 @@ C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\n
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.dll
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
 C:\Users\ahmed.ayaad\ma-projects\.Net\Pharmacy\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\ExcelDataReader.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\My Projects\Pharmacy\Pharmacy-API\Pharmacy\Pharmacy.API\obj\Debug\netcoreapp3.1\Pharmacy.API.MvcApplicationPartsAssemblyInfo.cs

@@ -6,13 +6,13 @@
         public int PageSize { get; set; }
         public PaginationFilter()
         {
-            PageNumber = 1;
-            PageSize = 10;
+            PageNumber = 0;
+            PageSize = 50;
         }
         public PaginationFilter(int pageNumber, int pageSize)
         {
-            PageNumber = pageNumber < 1 ? 1 : pageNumber;
-            PageSize = pageSize > 15 ? 15 : pageSize;
+            PageNumber = pageNumber < 0 ? 0 : pageNumber;
+            PageSize = pageSize > 50 ? 50 : pageSize;
         }
     }
 }

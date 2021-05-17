@@ -14,6 +14,7 @@ namespace Pharmacy.Core.Interfaces
         Task<List<Medicine>> GetMedicinesWithUnitNames();
         Task<Medicine> GetMedicine(int id);
         Task<bool> AddRangOfMedicines(List<Medicine> medicines);
+        Task<bool> DeleteMedicine(int medicineId);
 
     }
 }

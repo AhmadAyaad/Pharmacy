@@ -130,5 +130,21 @@ namespace Pharmacy.API.Controllers
                 return Ok(new Response<Medicine> { Data = medicine, Error = null, IsSucceeded = true });
             return NotFound(new Response<Medicine> { Data = null, IsSucceeded = false, Error = "Not Found" });
         }
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteMedicine(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Please send a valid medicine id");
+            try
+            {
+                await _medicineService.DeleteMedicine(id);
+                return NoContent();
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
     }
 }

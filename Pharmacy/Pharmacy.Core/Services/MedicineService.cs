@@ -70,6 +70,21 @@ namespace Pharmacy.Core.Services
             }
         }
 
+        public async Task<bool> DeleteMedicine(int medicineId)
+        {
+            try
+            {
+                await _unitOfWork.MedicineRepository.Delete(medicineId);
+                await _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         public async Task<Medicine> GetMedicine(int id)
         {
             try
@@ -89,12 +104,13 @@ namespace Pharmacy.Core.Services
         {
             try
             {
-                var medicinesQuery = _unitOfWork.MedicineRepository.GetAll();
-                var countQuery = _unitOfWork.MedicineRepository.GetAll();
-                var totalRecords = await countQuery.CountAsync();
+                var medicinesQuery = _unitOfWork.MedicineRepository.GetAll().Include(m=>m.Unit);
+
+                var totalRecords = await medicinesQuery.CountAsync();
+                var skip = validFilter.PageNumber * validFilter.PageSize;
                 var totalPages = ((double)totalRecords / (double)validFilter.PageSize);
                 int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
-                var pagedData = await medicinesQuery.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                var pagedData = await medicinesQuery.Skip(skip)
                                          .Take(validFilter.PageSize)
                                          .ToListAsync();
                 if (pagedData != null)
@@ -113,30 +129,27 @@ namespace Pharmacy.Core.Services
         {
             try
             {
-                var mappedMedicines = new List<Medicine>();
+                //var mappedMedicines = new List<Medicine>();
+
                 var medicines = await _unitOfWork.MedicineRepository.GetAll().Include(m => m.Unit).ToListAsync();
                 if (medicines != null)
-                {
-                    foreach (var item in medicines)
-                    {
-                        mappedMedicines.Add(
-                            new Medicine() { MedicineName = $"{item.MedicineName} {item.Unit.UnitName}", MedicineId = item.MedicineId });
-                    };
-                }
-                return mappedMedicines;
+                    return medicines;
+                return new List<Medicine>();
+                //if (medicines != null)
+                //{
+                //    foreach (var item in medicines)
+                //    {
+                //        mappedMedicines.Add(
+                //            new Medicine() { MedicineName = $"{item.MedicineName} {item.Unit.UnitName}", MedicineId = item.MedicineId });
+                //    };
+                //}
+                //return mappedMedicines;
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.Message);
+                return new List<Medicine>();
             }
-            return new List<Medicine>();
         }
-
-
-
-
-
-
-
     }
 }
