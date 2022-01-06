@@ -4,12 +4,12 @@
     "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Infrastructure\\Pharmacy.Infrastructure.csproj": {}
   },
   "projects": {
-    "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj": {
+    "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\ZPharmacy.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
-        "projectName": "Pharmacy.Domain",
-        "projectPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj",
+        "projectUniqueName": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\ZPharmacy.Domain.csproj",
+        "projectName": "ZPharmacy.Domain",
+        "projectPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\ZPharmacy.Domain.csproj",
         "packagesPath": "C:\\Users\\Ahmad Ayad\\.nuget\\packages\\",
         "outputPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\obj\\",
         "projectStyle": "PackageReference",
@@ -90,8 +90,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj": {
-                "projectPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\Pharmacy.Domain.csproj"
+              "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\ZPharmacy.Domain.csproj": {
+                "projectPath": "F:\\My Projects\\Pharmacy\\Pharmacy-API\\Pharmacy\\Pharmacy.Domain\\ZPharmacy.Domain.csproj"
               }
             }
           }

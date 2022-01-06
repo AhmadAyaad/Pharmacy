@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-using Pharmacy.Core.Interfaces;
-using Pharmacy.Domain.View;
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using ZPharmacy.API.Extensions;
+using ZPharmacy.Core.IServices;
+using ZPharmacy.Domain.View;
+using ZPharmacy.Shared.Models;
 
-namespace Pharmacy.API.Controllers
+namespace ZPharmacy.API.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
+
     public class PharmacyController : ControllerBase
     {
         private readonly IPharamcyService _pharamcyService;
@@ -21,67 +23,71 @@ namespace Pharmacy.API.Controllers
             _pharamcyService = pharamcyService;
         }
 
-        [Route("api/largePharmacies")]
-        [HttpGet]
-        public Task<IActionResult> GetLargePharamcies()
-        {
-            var largePharmacies = _pharamcyService.GetParentPharamices();
-            if (largePharmacies != null)
-                return Task.Run<IActionResult>(() => Ok(largePharmacies));
-            return Task.Run<IActionResult>(() => NotFound());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPharmacy(int id)
-        {
-            var pharmacy = await _pharamcyService.GetPharmacyById(id);
-            if (pharmacy != null)
-                return Ok(new Response<Pharmacy.Domain.Entities.Pharmacy> { Data = pharmacy, IsSucceeded = true, Error = null });
-            return NotFound(new Response<Pharmacy.Domain.Entities.Pharmacy> { Data = null, IsSucceeded = false, Error = "Not found" });
-        }
-
-        [Route("api/pharmacyProducts/{pharmacyId}")]
-        [HttpGet]
-        public async Task<IActionResult> GetPharmacyProducts([FromRoute] int pharmacyId)
+        [HttpGet("large-pharmacies")]
+        public async Task<IActionResult> GetLargePharmacies()
         {
             try
             {
-                var productQuantities = await _pharamcyService
-                                        .GetPharmacyProducts(pharmacyId);
-                if (productQuantities.Count() > 0)
-                    return Ok(new Response<List<ProductQuantityView>>
-                    {
-                        Data = productQuantities.ToList(),
-                        IsSucceeded = true,
-                        Error = null
-                    });
-                return BadRequest(new Response<List<ProductQuantityView>>
-                {
-                    Data = null,
-                    IsSucceeded = false,
-                    Error = null
-                });
+                var largePharmacies = await _pharamcyService.GetLargePharmacies();
+                return Ok(largePharmacies.Data);
+            }
+            catch (Exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Exception has been thrown while retrieving all large pharmacies.");
+            }
+
+        }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetPharmacy(int id)
+        //{
+        //    var pharmacy = await _pharamcyService.GetPharmacyById(id);
+        //    if (pharmacy != null)
+        //        return Ok(new Response<Domain.Entities.Pharmacy> { Data = pharmacy, IsSucceeded = true, Error = null });
+        //    return NotFound(new Response<Domain.Entities.Pharmacy> { Data = null, IsSucceeded = false, Error = "Not found" });
+        //}
+        [HttpGet("pharmacyProducts/{pharmacyId}")]
+        public async Task<IActionResult> GetPharmacyProducts([FromRoute] int pharmacyId, [FromQuery]PaginationFilter paginationFilter)
+        {
+            try
+            {
+                var validFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
+                var pagedResultproductsQuantitiesViewResponse = await _pharamcyService.GetExistingPharmacyProductsAsync(pharmacyId,
+                                                                                                                validFilter.PageNumber,
+                                                                                                                validFilter.PageSize);
+                if (pagedResultproductsQuantitiesViewResponse.Status != ResponseStatus.Succeeded)
+                    return this.FailedResponseResult(pagedResultproductsQuantitiesViewResponse);
+                return Ok(pagedResultproductsQuantitiesViewResponse.Data);
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new Response<List<ProductQuantityView>>
-                    {
-                        Data = null,
-                        IsSucceeded = false,
-                        Error = e.Message
-                    });
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Exception has been thrown while retrieving pharmacy products.");
             }
         }
 
-        [Route("api/pharmacy/products/{productId}/{pharmacyId}")]
-        [HttpGet]
-        public async Task<IActionResult> GetPharmacyProduct(int productId, int pharmacyId)
+        [HttpGet("pharmacyProducts/{pharmacyId}/{productId}")]
+        public async Task<IActionResult> GetPharmacyProduct([FromRoute] int pharmacyId, [FromRoute] int productId)
         {
-            var product = await _pharamcyService.GetPharmacyProduct(productId, pharmacyId);
-            if (product != null)
-                return Ok(product.ToList());
-            return NotFound();
+            try
+            {
+                var productQuantityViewResponse = await _pharamcyService.GetPharmacyProductDetailsAsync(pharmacyId, productId);
+                if (productQuantityViewResponse.Status != ResponseStatus.Succeeded)
+                    return this.FailedResponseResult(productQuantityViewResponse);
+                return Ok(productQuantityViewResponse.Data);
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Exception has been thrown while retrieving pharmacy product.");
+            }
         }
+
+        //[Route("api/pharmacy/products/{productId}/{pharmacyId}")]
+        //[HttpGet]
+        //public async Task<IActionResult> GetPharmacyProduct(int productId, int pharmacyId)
+        //{
+        //    var product = await _pharamcyService.GetPharmacyProduct(productId, pharmacyId);
+        //    if (product != null)
+        //        return Ok(product.ToList());
+        //    return NotFound();
+        //}
     }
 }

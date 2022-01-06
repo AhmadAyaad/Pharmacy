@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
-using Pharmacy.Domain.Entities;
-using Pharmacy.Infrastructure.Data;
-
 using System.Threading.Tasks;
+using ZPharmacy.Domain.Entities;
+using ZPharmacy.Domain.IRepository;
+using ZPharmacy.Infrastructure.Data;
 
-namespace Pharmacy.Infrastructure.Repostiory
+namespace ZPharmacy.Infrastructure.Repostiory
 {
     public class UnitReposiotry : Repository<Unit>, IUnitRepository
     {
@@ -13,11 +12,11 @@ namespace Pharmacy.Infrastructure.Repostiory
         {
         }
 
-        public async Task<int> GetUnitIdByName(object name)
+        public async Task<int> GetUnitIdByNameAsync(object name)
         {
-            var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.UnitName == name);
+            var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.UnitName == (string)name);
             if (unit != null)
-                return unit.UnitId;
+                return unit.Id;
             return 0;
         }
     }

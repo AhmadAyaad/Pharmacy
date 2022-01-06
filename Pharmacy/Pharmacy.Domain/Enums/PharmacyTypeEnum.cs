@@ -1,4 +1,4 @@
-﻿namespace Pharmacy.Domain.Enums
+﻿namespace ZPharmacy.Domain.Enums
 {
     public enum PharmacyTypeEnum
     {

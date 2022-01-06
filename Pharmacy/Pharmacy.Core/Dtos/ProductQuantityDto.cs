@@ -1,10 +1,10 @@
-﻿using Pharmacy.Domain.Entities;
+﻿using ZPharmacy.Domain.Entities;
 
-namespace Pharmacy.Core.Dtos
+namespace ZPharmacy.Core.Dtos
 {
     public class ProductQuantityDto
     {
-        public Medicine Medicine { get; set; }
+        public Product Medicine { get; set; }
         public int Quantity { get; set; }
     }
 }

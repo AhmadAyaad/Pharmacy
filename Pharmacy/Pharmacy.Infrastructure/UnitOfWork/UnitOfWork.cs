@@ -1,70 +1,103 @@
-﻿using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Interfaces;
-using Pharmacy.Infrastructure.Data;
-using Pharmacy.Infrastructure.Repostiory;
+﻿using System.Threading.Tasks;
+using ZPharmacy.Domain.IRepository;
+using ZPharmacy.Infrastructure.Data;
+using ZPharmacy.Infrastructure.Repostiory;
 
-using System.Threading.Tasks;
-
-namespace Pharmacy.Infrastructure.UnitOfWork
+namespace ZPharmacy.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly PharmacyDbContext _context;
-
-        public UnitOfWork(PharmacyDbContext context,
-            IRepository<Medicine> medicineRepository,
-            IMedicineRepository specificMedicineRepository,
-            IRepository<Unit> unitRepository,
-            IUnitRepository specficUnitRepository,
-            IRepository<Supplier> supplierRepository,
-            IRepository<ProductImportDetails> productImportDetailsRepository,
-            IRepository<SupplierProductsTransfer> supplierProductsTransferRepository,
-            IRepository<Pharmacy.Domain.Entities.Pharmacy> pharmacyRepository,
-            IPharmacyRepository specficpharmacyRepository,
-            IRepository<ProductsQuantity> productsQuantityRepository,
-            ISupplierProductsTransferReposiotry supplierProductsTransferReposiotry,
-            IRepository<PharmacySupplyDetails> pharmacySupplyDetailsRepo,
-            IRepository<PharmacyProductsTransfer> pharamcyProductsTransferRepo
-            )
+        private readonly ApplicationUserManager _applicationUserManager;
+        private IPharmacyRepository _pharmacyRepo;
+        private IUnitRepository _unitRepo;
+        private IProductRepository _productRepo;
+        private ISupplierRepository _supplierRepo;
+        private IProductQuantityRepository _productQuantityRepo;
+        private ISupplierOrderRepository _supplierOrderRepo;
+        private ISupplierOrderDetailsRepository _supplierOrderDetailsRepo;
+        private IAccountRepository _accountRepository;
+        public UnitOfWork(PharmacyDbContext context, ApplicationUserManager applicationUserManager)
         {
             _context = context;
-            MedicineRepository = medicineRepository;
-            SpecificMedicineRepository = specificMedicineRepository;
-            UnitRepository = unitRepository;
-            SpecficUnitRepository = specficUnitRepository;
-            SpecficSupplierProductsTransferReposiotry = supplierProductsTransferReposiotry;
-            SupplierRepository = supplierRepository;
-            ProductImportDetailsRepository = productImportDetailsRepository;
-            SupplierProductsTransferRepository = supplierProductsTransferRepository;
-            PharmacyRepository = pharmacyRepository;
-            SpecficPharmacyRepository = specficpharmacyRepository;
-            ProductsQuantityRepository = productsQuantityRepository;
-            PharmacySupplyDetailsRepo = pharmacySupplyDetailsRepo;
-            PharamcyProductsTransferRepo = pharamcyProductsTransferRepo;
+            _applicationUserManager = applicationUserManager;
+        }
+        public ISupplierRepository SupplierRepo
+        {
+            get
+            {
+                if (_supplierRepo == null)
+                    _supplierRepo = new SupplierRepository(_context);
+                return _supplierRepo;
+            }
+        }
+        public IProductRepository ProductRepo
+        {
+            get
+            {
+                if (_productRepo == null)
+                    _productRepo = new ProductRepoistory(_context);
+                return _productRepo;
+            }
+        }
+        public IUnitRepository UnitRepo
+        {
+            get
+            {
+                if (_unitRepo == null)
+                    _unitRepo = new UnitReposiotry(_context);
+                return _unitRepo;
+            }
+        }
+        public IPharmacyRepository PharmacyRepo
+        {
+            get
+            {
+                if (_pharmacyRepo == null)
+                    _pharmacyRepo = new PharmacyRepository(_context);
+                return _pharmacyRepo;
+            }
+        }
+        public IProductQuantityRepository ProductQuantityRepo
+        {
+
+            get
+            {
+                if (_productQuantityRepo == null)
+                    _productQuantityRepo = new ProductQuantityRepository(_context);
+                return _productQuantityRepo;
+            }
 
         }
+        public ISupplierOrderRepository SupplierOrderRepo
+        {
+            get
+            {
+                if (_supplierOrderRepo == null)
+                    _supplierOrderRepo = new SupplierOrdersRepository(_context);
+                return _supplierOrderRepo;
+            }
+        }
 
-        public IRepository<Medicine> MedicineRepository { get; }
+        public ISupplierOrderDetailsRepository SupplierOrderDetailsRepo
+        {
+            get
+            {
+                if (_supplierOrderDetailsRepo == null)
+                    _supplierOrderDetailsRepo = new SupplierOrderDetailsDeReposiotry(_context);
+                return _supplierOrderDetailsRepo;
+            }
+        }
 
-        public IMedicineRepository SpecificMedicineRepository { get; }
-        public IRepository<Unit> UnitRepository { get; }
-
-        public IUnitRepository SpecficUnitRepository { get; }
-        public IRepository<Supplier> SupplierRepository { get; }
-
-        public IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
-        public IRepository<SupplierProductsTransfer> SupplierProductsTransferRepository { get; }
-
-        public IRepository<Domain.Entities.Pharmacy> PharmacyRepository { get; }
-        public IPharmacyRepository SpecficPharmacyRepository { get; }
-
-        public ISupplierProductsTransferReposiotry SpecficSupplierProductsTransferReposiotry { get; }
-        public IRepository<ProductsQuantity> ProductsQuantityRepository { get; }
-
-        public IRepository<PharmacySupplyDetails> PharmacySupplyDetailsRepo { get; }
-
-        public IRepository<PharmacyProductsTransfer> PharamcyProductsTransferRepo { get; }
-
+        public IAccountRepository AccountRepo
+        {
+            get
+            {
+                if (_accountRepository == null)
+                    _accountRepository = new AccountRepository(_context, _applicationUserManager);
+                return _accountRepository;
+            }
+        }
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

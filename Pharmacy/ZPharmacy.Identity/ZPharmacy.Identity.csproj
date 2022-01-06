@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pharmacy.Domain\ZPharmacy.Domain.csproj" />
+    <ProjectReference Include="..\Pharmacy.Infrastructure\ZPharmacy.Infrastructure.csproj" />
+    <ProjectReference Include="..\ZPharmacy.Shared\ZPharmacy.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

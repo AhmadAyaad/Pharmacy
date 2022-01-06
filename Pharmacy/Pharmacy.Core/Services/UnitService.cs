@@ -1,59 +1,52 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using Pharmacy.Core.Interfaces;
-using Pharmacy.Domain.Entities;
-using Pharmacy.Infrastructure.UnitOfWork;
-
-using System;
+﻿using AutoMapper;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using ZPharmacy.Core.Dtos;
+using ZPharmacy.Core.IServices;
+using ZPharmacy.Infrastructure.UnitOfWork;
+using ZPharmacy.Shared.Models;
 
-namespace Pharmacy.Core.Services
+namespace ZPharmacy.Core.Services
 {
     public class UnitService : IUnitService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UnitService(IUnitOfWork unitOfWork)
+        public UnitService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<int> GetUnitIdByName(object name)
-        {
-            return await _unitOfWork.SpecficUnitRepository.GetUnitIdByName(name);
-        }
+        //public async Task<int> GetUnitIdByName(object name)
+        //{
+        //    return await _unitOfWork.UnitRepo.GetUnitIdByNameAsync(name);
+        //}
 
-        public async Task<Unit> GetUnit(int id)
-        {
-            try
-            {
-                var unit = await _unitOfWork.UnitRepository.GetById(id);
-                if (unit != null)
-                    return unit;
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.Message);
-            }
+        //public async Task<Unit> GetUnit(int id)
+        //{
+        //    try
+        //    {
+        //        var unit = await _unitOfWork.UnitRepo.GetByIdAsync(id);
+        //        if (unit != null)
+        //            return unit;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Trace.WriteLine(e.Message);
+        //    }
 
-            return new Unit();
-        }
+        //    return new Unit();
+        //}
 
-        public async Task<List<Unit>> GetUnits()
+        public async Task<Response<List<UnitDTO>>> GetUnits()
         {
-            try
-            {
-                var units = await _unitOfWork.UnitRepository.GetAll().ToListAsync();
-                if (units != null)
-                    return units;
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.Message);
-            }
-            return new List<Unit>();
+            var units = await _unitOfWork.UnitRepo.GetAllAsync();
+            if (units is null)
+                return new Response<List<UnitDTO>>(null, ResponseStatus.NotFound, "There is no units");
+            var unitsDTOS = _mapper.Map<List<UnitDTO>>(units);
+            return new Response<List<UnitDTO>>(unitsDTOS);
         }
     }
 }

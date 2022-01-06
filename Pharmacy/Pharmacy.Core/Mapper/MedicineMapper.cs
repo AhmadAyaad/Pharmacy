@@ -1,26 +1,25 @@
-﻿using Pharmacy.Core.Dtos;
-using Pharmacy.Domain.Entities;
+﻿using System.Collections.Generic;
+using ZPharmacy.Core.Dtos;
+using ZPharmacy.Domain.Entities;
 
-using System.Collections.Generic;
-
-namespace Pharmacy.Core.Mapper
+namespace ZPharmacy.Core.Mapper
 {
     public class MedicineMapper
     {
-        private readonly List<Medicine> _targetMedicines;
+        private readonly List<Product> _targetMedicines;
 
         public MedicineMapper()
         {
-            _targetMedicines = new List<Medicine>();
+            _targetMedicines = new List<Product>();
         }
-        public List<Medicine> MapToMedicines(List<MedicneFileUploadDto> sourceList)
+        public List<Product> MapToMedicines(List<MedicneFileUploadDto> sourceList)
         {
             foreach (var item in sourceList)
             {
                 _targetMedicines.Add(
-                new Medicine
+                new Product
                 {
-                    MedicineName = item.MedicineName,
+                    Name = item.MedicineName,
                     UnitId = item.UnitId
                 }
                                     );

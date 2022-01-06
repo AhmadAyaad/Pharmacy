@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
+using ZPharmacy.Domain.Enums;
 
-namespace Pharmacy.Domain.Entities
+namespace ZPharmacy.Domain.Entities
 {
     public class Pharmacy
     {
-        public int PharmacyId { get; set; }
+        public int Id { get; set; }
         public int? ParentPharmacyId { get; set; }
-        public string PharmacyName { get; set; }
+        public string Name { get; set; }
         public virtual Pharmacy ParentPharmacy { get; set; }
-        public virtual HashSet<Pharmacy> ChildrenPharmacies { get; set; } = new HashSet<Pharmacy>();
-        public PharmacyType PharmacyType { get; set; }
-
-        public ICollection<PatientTransaction> PatientTransactions { get; set; }
-                                                      = new HashSet<PatientTransaction>();
+        public virtual ICollection<Pharmacy> ChildrenPharmacies { get; set; }
+        public PharmacyTypeEnum PharmacyType { get; set; }
+        public bool ISEligibleToSellToPatients { get; set; } = false;
     }
 }

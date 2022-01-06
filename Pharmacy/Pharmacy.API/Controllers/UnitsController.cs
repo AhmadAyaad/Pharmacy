@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Pharmacy.Core.Interfaces;
-
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using ZPharmacy.Core;
+using ZPharmacy.Core.IServices;
+using ZPharmacy.Shared.Models;
 
-namespace Pharmacy.API.Controllers
+namespace ZPharmacy.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,12 +21,18 @@ namespace Pharmacy.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUnits()
         {
-            var units = await _unitService.GetUnits();
-            if (units != null)
-                return Ok(units);
-            return NotFound();
+            try
+            {
+                var unitsDTOSReponse = await _unitService.GetUnits();
+                if (unitsDTOSReponse.Status == ResponseStatus.NotFound)
+                    return NotFound();
+                return Ok(unitsDTOSReponse.Data);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something went wrong while retrieving all product units");
+            }
         }
-
     }
-
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pharmacy.Core.Dtos
+namespace ZPharmacy.Core.Dtos
 {
     public class PharamcyProductsTransferDTO
     {

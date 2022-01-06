@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Pharmacy.Infrastructure.Data;
+using ZPharmacy.Infrastructure.Data;
 
-namespace Pharmacy.Infrastructure.Migrations
+namespace ZPharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
     partial class PharmacyDbContextModelSnapshot : ModelSnapshot
@@ -17,202 +17,191 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.10");
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("ExpireDateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("ExpireationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ProductionDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ExpireDateId");
-
-                    b.ToTable("ExpireDates");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MedicineCode")
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MedicineName")
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("NationalCode")
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("SellingPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("UnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MedicineId");
-
-                    b.HasIndex("MedicineName");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("Medicines");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExpireDateId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MedicineId", "ExpireDateId");
-
-                    b.HasIndex("ExpireDateId");
-
-                    b.ToTable("MedicineExpireDate");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Patient", b =>
-                {
-                    b.Property<int>("PatientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("PatientName")
+                    b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("PatientId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PatientTransaction", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<int>("PatientTransactionId")
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Pharmacy", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("ISEligibleToSellToPatients")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PharmacyId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("PatientTransactionId");
-
-                    b.HasIndex("MedicineId");
-
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("PharmacyId");
-
-                    b.ToTable("PatientTransactions");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Pharmacy", b =>
-                {
-                    b.Property<int>("PharmacyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ParentPharmacyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PharmacyName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("PharmacyTypeId")
+                    b.Property<int>("PharmacyType")
                         .HasColumnType("int");
 
-                    b.HasKey("PharmacyId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ParentPharmacyId");
 
-                    b.HasIndex("PharmacyTypeId");
-
                     b.ToTable("Pharmacies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ISEligibleToSellToPatients = false,
+                            Name = "مجانى",
+                            PharmacyType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ISEligibleToSellToPatients = false,
+                            Name = "تأمين",
+                            PharmacyType = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ISEligibleToSellToPatients = true,
+                            Name = "نفقة",
+                            PharmacyType = 0
+                        });
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacyProductsTransfer", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PharmacyId")
-                        .HasColumnType("int")
-                        .HasColumnName("pharmacy_Recviver_Id");
-
-                    b.Property<int?>("PharmacySupplyDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("MedicineId");
-
-                    b.HasIndex("PharmacyId");
-
-                    b.HasIndex("PharmacySupplyDetailsId");
-
-                    b.ToTable("PharmacyProductsTransfer");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacySupplyDetails", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -222,37 +211,114 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("LocalCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("ProductType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("SellingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocalCode")
+                        .IsUnique();
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("NationalCode")
+                        .IsUnique();
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.ProductQuantity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalProductQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PharmacyId");
 
-                    b.ToTable("PharmacySupplyDetails");
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductQuantities");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacyType", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Supplier", b =>
                 {
-                    b.Property<int>("PharmacyTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("ISEligibleToSellToPatients")
-                        .HasColumnType("bit");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
-                    b.Property<int>("PharmacyTypeEnum")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("Phone")
                         .HasColumnType("int");
 
-                    b.HasKey("PharmacyTypeId");
+                    b.HasKey("Id");
 
-                    b.ToTable("PharmacyType");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique()
+                        .HasFilter("[Phone] IS NOT NULL");
+
+                    b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.SupplyOrderDetails", b =>
                 {
-                    b.Property<int>("ProductImportDetailsId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -260,334 +326,302 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<int>("ApprovalNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("BatchNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PurchaseFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierOrdersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplyOrderNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("SupplierOrdersId");
+
+                    b.ToTable("SupplyOrderDetails");
+                });
+
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.SupplyOrders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ImportOrderNumber")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("PurchaseFee")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
 
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupplyOrderNumber")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPricePerProduct")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ProductImportDetailsId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("ProductImportDetails");
+                    b.ToTable("SupplyOrders");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductsQuantity", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Unit", b =>
                 {
-                    b.Property<int>("ProductsQuantityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PharmacyId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TotalProductQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsQuantityId");
-
-                    b.HasIndex("MedicineId");
-
-                    b.HasIndex("PharmacyId");
-
-                    b.ToTable("ProductsQuantities");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Supplier", b =>
-                {
-                    b.Property<int>("SupplierId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("Phone")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("SupplierId");
-
-                    b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.SupplierProductsTransfer", b =>
-                {
-                    b.Property<int>("SupplierProductsTransferId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PharmacyId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("ProductImportDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("SupplierProductsTransferId");
-
-                    b.HasIndex("MedicineId");
-
-                    b.HasIndex("PharmacyId");
-
-                    b.HasIndex("ProductImportDetailsId");
-
-                    b.ToTable("SupplierProductsTransfers");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Unit", b =>
-                {
-                    b.Property<int>("UnitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UnitName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("UnitId");
+                    b.HasKey("Id");
 
                     b.ToTable("Units");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            UnitName = "قرص"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            UnitName = "فيال"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            UnitName = "زجاجة"
+                        });
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.User", b =>
                 {
-                    b.HasOne("Pharmacy.Domain.Entities.Unit", "Unit")
-                        .WithMany("Medicines")
-                        .HasForeignKey("UnitId");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("ZPharmacy.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("ZPharmacy.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZPharmacy.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("ZPharmacy.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Pharmacy", b =>
+                {
+                    b.HasOne("ZPharmacy.Domain.Entities.Pharmacy", "ParentPharmacy")
+                        .WithMany("ChildrenPharmacies")
+                        .HasForeignKey("ParentPharmacyId");
+
+                    b.Navigation("ParentPharmacy");
+                });
+
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("ZPharmacy.Domain.Entities.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.MedicineExpireDate", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.ProductQuantity", b =>
                 {
-                    b.HasOne("Pharmacy.Domain.Entities.ExpireDate", "ExpireDate")
-                        .WithMany("MedicineExpireDates")
-                        .HasForeignKey("ExpireDateId")
+                    b.HasOne("ZPharmacy.Domain.Entities.Pharmacy", "Pharmacy")
+                        .WithMany()
+                        .HasForeignKey("PharmacyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany("MedicineExpireDates")
-                        .HasForeignKey("MedicineId")
+                    b.HasOne("ZPharmacy.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ExpireDate");
-
-                    b.Navigation("Medicine");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PatientTransaction", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany("PatientTransactions")
-                        .HasForeignKey("MedicineId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.Patient", "Patient")
-                        .WithMany("PatientTransactions")
-                        .HasForeignKey("PatientId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "Pharmacy")
-                        .WithMany("PatientTransactions")
-                        .HasForeignKey("PharmacyId");
-
-                    b.Navigation("Medicine");
-
-                    b.Navigation("Patient");
 
                     b.Navigation("Pharmacy");
+
+                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Pharmacy", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.SupplyOrderDetails", b =>
                 {
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "ParentPharmacy")
-                        .WithMany("ChildrenPharmacies")
-                        .HasForeignKey("ParentPharmacyId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.PharmacyType", "PharmacyType")
-                        .WithMany("Pharmacies")
-                        .HasForeignKey("PharmacyTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("ParentPharmacy");
-
-                    b.Navigation("PharmacyType");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacyProductsTransfer", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany()
-                        .HasForeignKey("MedicineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "ReciverPharmacy")
+                    b.HasOne("ZPharmacy.Domain.Entities.Pharmacy", "Pharmacy")
                         .WithMany()
                         .HasForeignKey("PharmacyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Domain.Entities.PharmacySupplyDetails", "PharmacySupplyDetails")
-                        .WithMany("PharmacyProductsTransfers")
-                        .HasForeignKey("PharmacySupplyDetailsId");
-
-                    b.Navigation("Medicine");
-
-                    b.Navigation("PharmacySupplyDetails");
-
-                    b.Navigation("ReciverPharmacy");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacySupplyDetails", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "SupplierPharmacy")
+                    b.HasOne("ZPharmacy.Domain.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("PharmacyId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SupplierPharmacy");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Supplier", "Supplier")
+                    b.HasOne("ZPharmacy.Domain.Entities.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("SupplierId");
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZPharmacy.Domain.Entities.SupplyOrders", "SupplyOrders")
+                        .WithMany("SupplyOrdersDetails")
+                        .HasForeignKey("SupplierOrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pharmacy");
+
+                    b.Navigation("Product");
 
                     b.Navigation("Supplier");
+
+                    b.Navigation("SupplyOrders");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductsQuantity", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany()
-                        .HasForeignKey("MedicineId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "Pharmacy")
-                        .WithMany()
-                        .HasForeignKey("PharmacyId");
-
-                    b.Navigation("Medicine");
-
-                    b.Navigation("Pharmacy");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.SupplierProductsTransfer", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.Entities.Medicine", "Medicine")
-                        .WithMany()
-                        .HasForeignKey("MedicineId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.Pharmacy", "Pharmacy")
-                        .WithMany()
-                        .HasForeignKey("PharmacyId");
-
-                    b.HasOne("Pharmacy.Domain.Entities.ProductImportDetails", "ProductImportDetails")
-                        .WithMany("SupplierProductsTransfer")
-                        .HasForeignKey("ProductImportDetailsId");
-
-                    b.Navigation("Medicine");
-
-                    b.Navigation("Pharmacy");
-
-                    b.Navigation("ProductImportDetails");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ExpireDate", b =>
-                {
-                    b.Navigation("MedicineExpireDates");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Medicine", b =>
-                {
-                    b.Navigation("MedicineExpireDates");
-
-                    b.Navigation("PatientTransactions");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Patient", b =>
-                {
-                    b.Navigation("PatientTransactions");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Pharmacy", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.Pharmacy", b =>
                 {
                     b.Navigation("ChildrenPharmacies");
-
-                    b.Navigation("PatientTransactions");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacySupplyDetails", b =>
+            modelBuilder.Entity("ZPharmacy.Domain.Entities.SupplyOrders", b =>
                 {
-                    b.Navigation("PharmacyProductsTransfers");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.PharmacyType", b =>
-                {
-                    b.Navigation("Pharmacies");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.ProductImportDetails", b =>
-                {
-                    b.Navigation("SupplierProductsTransfer");
-                });
-
-            modelBuilder.Entity("Pharmacy.Domain.Entities.Unit", b =>
-                {
-                    b.Navigation("Medicines");
+                    b.Navigation("SupplyOrdersDetails");
                 });
 #pragma warning restore 612, 618
         }

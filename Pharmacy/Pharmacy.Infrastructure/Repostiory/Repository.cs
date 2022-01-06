@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
-using Pharmacy.Domain.Interfaces;
-using Pharmacy.Infrastructure.Data;
-
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ZPharmacy.Domain.IRepository;
+using ZPharmacy.Infrastructure.Data;
 
-namespace Pharmacy.Infrastructure.Repostiory
+namespace ZPharmacy.Infrastructure.Repostiory
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -20,49 +19,30 @@ namespace Pharmacy.Infrastructure.Repostiory
             _context = context;
             entity = context.Set<T>();
         }
-        public async Task<bool> Create(T t)
+        public ValueTask<EntityEntry<T>> AddAsync(T t)
         {
-            if (t != null)
-            {
-                await entity.AddAsync(t);
-                return true;
-            }
-            return false;
+            return _context.Set<T>().AddAsync(t);
         }
 
-        public async Task<bool> Delete(int id)
+        public ValueTask<T> GetByIdAsync(int id)
         {
-            var entityToDelete = await entity.FindAsync(id);
-            if (entityToDelete != null)
-            {
-                entity.Remove(entityToDelete);
-                return true;
-            }
-            return false;
+            return _context.Set<T>().FindAsync(id);
         }
-
+        public void AddRangeAsync(IEnumerable<T> entities)
+        {
+            _context.Set<T>().AddRangeAsync(entities);
+        }
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return entity.Where(expression);
         }
-
-        public IQueryable<T> GetAll()
+        public Task<List<T>> GetAllAsync()
         {
-            return entity.AsNoTracking();
+            return _context.Set<T>().AsNoTracking().ToListAsync();
         }
-
-        public async Task<T> GetById(int id)
+        public void Remove(T entity)
         {
-
-            return await entity.FindAsync(id);
-        }
-
-        public Task Update(T t)
-        {
-            entity.Attach(t);
-            return Task.Run(() =>
-            _context.Entry(t).State = EntityState.Modified
-            );
+            _context.Set<T>().Remove(entity);
         }
     }
 }

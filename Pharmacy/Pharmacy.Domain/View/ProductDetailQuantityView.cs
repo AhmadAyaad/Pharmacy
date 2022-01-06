@@ -1,10 +1,10 @@
-﻿using Pharmacy.Domain.Entities;
+﻿using ZPharmacy.Domain.Entities;
 
-namespace Pharmacy.Domain.View
+namespace ZPharmacy.Domain.View
 {
     public class ProductDetailQuantityView
     {
-        public ProductsQuantity ProductsQuantity { get; set; }
-        public virtual Medicine Medicine { get; set; }
+        public ProductQuantity ProductsQuantity { get; set; }
+        public virtual Product Medicine { get; set; }
     }
 }

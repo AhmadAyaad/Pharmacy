@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace Pharmacy.Domain.Entities
+﻿namespace ZPharmacy.Domain.Entities
 {
-    public class Supplier
+    public class Supplier : BaseEntity
     {
-        public int SupplierId { get; set; }
-        public string SupplierName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Address { get; set; }
         public int? Phone { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
     }
 }

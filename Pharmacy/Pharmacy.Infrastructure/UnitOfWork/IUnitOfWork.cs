@@ -1,26 +1,20 @@
-﻿using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Interfaces;
-using Pharmacy.Infrastructure.Repostiory;
+﻿using System.Threading.Tasks;
+using ZPharmacy.Domain.IRepository;
 
-using System.Threading.Tasks;
-
-namespace Pharmacy.Infrastructure.UnitOfWork
+namespace ZPharmacy.Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IRepository<Medicine> MedicineRepository { get; }
-        IMedicineRepository SpecificMedicineRepository { get; }
-        IRepository<Unit> UnitRepository { get; }
-        IUnitRepository SpecficUnitRepository { get; }
-        IRepository<Supplier> SupplierRepository { get; }
-        IRepository<ProductImportDetails> ProductImportDetailsRepository { get; }
-        IRepository<SupplierProductsTransfer> SupplierProductsTransferRepository { get; }
-        ISupplierProductsTransferReposiotry SpecficSupplierProductsTransferReposiotry { get; }
-        IRepository<Pharmacy.Domain.Entities.Pharmacy> PharmacyRepository { get; }
-        IPharmacyRepository SpecficPharmacyRepository { get; }
-        IRepository<ProductsQuantity> ProductsQuantityRepository { get; }
-        IRepository<PharmacySupplyDetails> PharmacySupplyDetailsRepo { get; }
-        IRepository<PharmacyProductsTransfer> PharamcyProductsTransferRepo { get; }
+        IProductRepository ProductRepo { get; }
+        IUnitRepository UnitRepo { get; }
+        ISupplierRepository SupplierRepo { get; }
+        ISupplierOrderDetailsRepository SupplierOrderDetailsRepo { get; }
+        ISupplierOrderRepository SupplierOrderRepo { get; }
+        IPharmacyRepository PharmacyRepo { get; }
+        IProductQuantityRepository ProductQuantityRepo { get; }
+        IAccountRepository AccountRepo {  get; }    
+        //IRepository<InternalPharmacyOrderDetails> PharmacySupplyDetailsRepo { get; }
+        //IRepository<PharmacyOrder> PharamcyProductsTransferRepo { get; }
         Task<int> SaveChangesAsync();
     }
 }
